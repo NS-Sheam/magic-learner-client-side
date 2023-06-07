@@ -2,9 +2,10 @@ import SectionTitle from "../../../components/SectionTitle";
 import useInstructor from "../../../hooks/useInstructor";
 
 const PopularInstructors = () => {
-    const [instructors, refetch] = useInstructor();
+    const [instructors] = useInstructor();
+    console.log(instructors);
     return (
-        <div className="my-container">
+        <div className="my-container lg:py-14">
             <SectionTitle
             heading={"our popular instructor"}
             description={"Meet our Popular Instructors - experts who inspire, guide, and empower. With industry experience and exceptional teaching skills, they bring passion to our learning community. Join their engaging classes, unlock your potential, and learn from the best."}/>
@@ -17,7 +18,7 @@ const PopularInstructors = () => {
                     <div className="card-body text-center">
                       <h2 className="text-2xl text-center">{instructor.name}</h2>
                      {
-                        instructor.classes.map((cl, i) => <p key={i}>
+                        instructor.classes?.map((cl, i) => <p key={i}>
                             {cl}
                         </p>)
                      }
