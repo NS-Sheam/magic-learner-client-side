@@ -22,8 +22,13 @@ const Banner = () => {
                         >
                             <h3 className="lg:text-6xl text-bandOrange font-bold">Start Music School Summer Camp!</h3>
                             <p>Discover the rhythm of summer at our Music School Summer Camp! Unleash your musical potential, make new friends, and have a blast with instrument lessons, ensemble rehearsals, and exciting activities. Join us for an unforgettable musical journey</p>
+                            <button className="text-xl px-6 py-3 bg-bandOrange hover:bg-orange-300 hover:text-black font-bold rounded-lg">Enroll now!</button>
                         </div>
-                        <div className="w-1/2 rounded-3xl">
+                        <div
+                            data-aos="fade-left"
+                            data-aos-anchor-placement="top-bottom"
+                            data-aos-duration="1000"
+                            className="w-1/2 rounded-3xl">
                             <img className="rounded-3xl" src={img} alt="" />
                         </div>
                     </div>
