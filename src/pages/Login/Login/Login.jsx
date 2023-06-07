@@ -1,5 +1,5 @@
 
-import { AiFillGoogleCircle, AiFillShop } from "react-icons/ai";
+import { AiFillGoogleCircle } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import "./Login.css"
 import logo from "../../../assets/logo.png"

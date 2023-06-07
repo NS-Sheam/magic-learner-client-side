@@ -9,7 +9,7 @@ const Main = () => {
         AOS.init();
       }, []);
     return (
-        <div data-theme="">
+        <div className="max-w-[2520px] mx-auto" data-theme="">
             <Header />
             <Outlet />
             <Footer />
