@@ -7,6 +7,7 @@ import Dashboard from "../layouts/Dashboard";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AddClass from "../pages/Dashboard/AllUsers/AddClass/AddClass";
 import AllClasses from "../pages/AllClasses/AllClasses";
+import Instructor from "../pages/Instructor/Instructor";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: "allclass",
                 element: <AllClasses />
+            },
+            {
+                path: "instructors",
+                element: <Instructor />
             }
         ]
     },
@@ -36,10 +41,6 @@ export const router = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard />,
         children: [
-            {
-                path: "users",
-                element: <div>dfd</div>
-            },
             {
                 path: "allusers",
                 element: <AllUsers />

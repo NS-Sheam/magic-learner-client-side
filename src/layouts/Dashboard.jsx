@@ -27,11 +27,11 @@ const Dashboard = () => {
     const listItem = role === "instructor" ?
         <>
             <li className="my-1">
-                <Link to={`/addclass`}> Add a Class
+                <Link to={`/dashboard/addclass`}> Add a Class
                 </Link>
             </li>
             <li className="my-1">
-                <Link to={`/myclass`}> My Class
+                <Link to={`/dashboard/myclass`}> My Class
                 </Link>
             </li>
         </>
@@ -64,9 +64,6 @@ const Dashboard = () => {
                     <ul className="menu p-4 w-80 h-full bg-bandOrange font-bold text-xl min-h-screen">
                         <li className="text-3xl my-1 lg:py-3 lg:px-7">
                             <Link to=""> <img className=" h-6 lg:h-10" src={logo} alt="logo" />
-                            </Link></li>
-                        <li className="my-1">
-                            <Link to={`/dashboard`}> Dashboard
                             </Link></li>
                         {
                             isAdmin &&

@@ -110,7 +110,7 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
-                            <input type="text" placeholder="Price" name="price" defaultValue={"$"} className="input input-bordered" />
+                            <input type="text" placeholder="Price $" name="price" className="input input-bordered" />
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">

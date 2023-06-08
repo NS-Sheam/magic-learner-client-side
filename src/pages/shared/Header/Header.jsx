@@ -29,7 +29,7 @@ const Header = () => {
             <ActiveLink to={`/allclass`}>Classes</ActiveLink>
         </li>
         <li>
-            <ActiveLink to={`/dashboard`}>Dashboard</ActiveLink>
+            <ActiveLink to={`/dashboard/allusers`}>Dashboard</ActiveLink>
         </li>
         <li>
             <ActiveLink to={`/blogs`}>Blog</ActiveLink>

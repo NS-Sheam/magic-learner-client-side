@@ -1,6 +1,6 @@
 
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Link, json } from 'react-router-dom';
+import { Link, json, useNavigate } from 'react-router-dom';
 import "./Register.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import { updateProfile } from "firebase/auth";
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useAuth();
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         const { name, email, password, photo } = data;
@@ -29,6 +30,7 @@ const Register = () => {
                 .then(data => {
                     console.log(data);
                 })
+                navigate("/");
             })
             // console.log(loggedUser);
             fetch

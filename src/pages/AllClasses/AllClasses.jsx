@@ -3,7 +3,7 @@ import useClasses from "../../hooks/useClasses";
 
 const AllClasses = () => {
     const [classes, refetch] = useClasses();
-    console.log(classes);
+    // console.log(classes);
     return (
         <div>
             <SectionTitle
