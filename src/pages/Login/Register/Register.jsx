@@ -4,11 +4,26 @@ import { Link } from 'react-router-dom';
 import "./Register.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
+import { updateProfile } from "firebase/auth";
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser } = useAuth();
 
     const onSubmit = data => {
-        console.log(data);
+        const { name, email, password, photo } = data;
+        createUser(email, password)
+        .then(async (result) => {
+            const loggedUser = result.user;
+            await updateProfile(loggedUser, {
+                displayName: name,
+                photoURL: photo
+            });
+            console.log(loggedUser);
+        })
+        .catch(error=>{
+            console.log(error);
+        })
     }
     return (
         <div className="hero min-h-screen bg-secondaryB py-6">
@@ -36,6 +51,12 @@ const Register = () => {
                         </div>
                         <div className="form-control">
                             <label className="label">
+                                <span className="label-text">Photo URL</span>
+                            </label>
+                            <input type="url" {...register("photo", { required: true })} placeholder="PhotoURL" className="input input-bordered" />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password"  {...register("password", {
@@ -53,7 +74,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Confirm Password</span>
                             </label>
-                            <input type="password"  {...register("confirm", {required: true })} placeholder="confirm password" className="input input-bordered" />
+                            <input type="password"  {...register("confirm", { required: true })} placeholder="confirm password" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
                             <button type="submit" className="btn bg-bandOrange hover:bg-orange-300">Login</button>

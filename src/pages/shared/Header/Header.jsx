@@ -7,6 +7,7 @@ import ActiveLink from './ActiveLink';
 import { Link } from 'react-router-dom';
 const Header = () => {
     const {user} = useContext(AuthContext);
+    // console.log(user);
     const menuItems = <>
         <li>
             <ActiveLink to={`/`}>Home</ActiveLink>
@@ -15,13 +16,13 @@ const Header = () => {
             <ActiveLink to={`/about`}>About</ActiveLink>
         </li>
         <li>
-            <ActiveLink to={`/corurses`}>Courses</ActiveLink>
+            <ActiveLink to={`/instructors`}>Instructors</ActiveLink>
         </li>
         <li>
-            <ActiveLink to={`/gallery`}>Gallery</ActiveLink>
+            <ActiveLink to={`/classes`}>Classes</ActiveLink>
         </li>
         <li>
-            <ActiveLink to={`/teacher`}>Teacher</ActiveLink>
+            <ActiveLink to={`/dashboard`}>Dashboard</ActiveLink>
         </li>
         <li>
             <ActiveLink to={`/blogs`}>Blog</ActiveLink>
@@ -74,6 +75,9 @@ const Header = () => {
                                 </li>
                             </> :
                             <>
+                                <li>
+                                    <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+                                </li>
                                 <li>
                                     <Link>
                                         Logout
