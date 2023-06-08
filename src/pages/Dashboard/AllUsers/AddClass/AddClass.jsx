@@ -2,49 +2,70 @@
 
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
+const img_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 const AddClass = () => {
     const { user } = useAuth();
+    const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
+    console.log(img_hosting_url);
+
     const handleAddClass = (event) => {
         event.preventDefault();
         const form = event.target;
         const instructor = form.instructor.value;
         const email = form.email.value;
         const title = form.title.value;
-        const photo = form.photo.value;
+        const imageFile = form.photo.files[0];
         const capacity = form.capacity.value;
         const price = form.price.value;
         const description = form.description.value;
-        const addedClassDetails = {
-            instructor,
-            email,
-            title,
-            photo,
-            capacity,
-            price,
-            description
-        };
-        console.log(addedClassDetails);
-        // fetch(``, {
-        //     method: "POST",
-        //     headers: {
-        //         "content-type": "application/json"
-        //     },
-        //     body: JSON.stringify(addedToyDetails)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         if (data.insertedId) {
-        //             Swal.fire({
-        //                 icon: 'success',
-        //                 title: 'Toy Added',
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             })
-        //         }
+        
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        
+        fetch(img_hosting_url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(imgData => {
+            if (imgData.success) {
+                const imgURL = imgData.data.display_url;
+                const addedClassDetails = {
+                    instructor,
+                    email,
+                    title,
+                    image: imgURL,
+                    capacity,
+                    price,
+                    description
+                };
+                
+                fetch("http://localhost:5000/classes", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(addedClassDetails)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Class Added',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    };
 
-        //     })
-    }
     return (
         <div className="hero bg-base-200 min-h-screen px-4 lg:px-10 py-5">
             <div className="">
