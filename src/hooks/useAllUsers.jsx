@@ -13,7 +13,7 @@ const useAllUsers = () => {
         },
     })
 
-    return [allUsers];
+    return [allUsers, refetch];
 
 }
 export default useAllUsers;

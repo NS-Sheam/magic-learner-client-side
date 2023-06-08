@@ -3,10 +3,54 @@ import useAdmin from "../../../hooks/useAdmin";
 import useAllUsers from "../../../hooks/useAllUsers";
 
 const AllUsers = () => {
-    const [allUsers] = useAllUsers();
-    const [userRole, isAdminLoading] = useAdmin();
-    const { isAdmin, role } = userRole;
-    console.log(allUsers);
+    const [allUsers, refetch] = useAllUsers();
+    // console.log(allUsers);
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    refetch();
+                }
+            })
+    }
+    const handleMakeAdmin = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ isAdmin: true })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    refetch();
+                }
+            })
+    }
+
+    const handleMakeInstructor = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ role: "instructor" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    refetch();
+                }
+            })
+    }
+
     return (
         <div>
             <SectionTitle heading={"All Users"}
@@ -48,34 +92,43 @@ const AllUsers = () => {
                                             </div>
                                         </td>
                                         <td>
-                                            {user.role}
+                                            <p>{user.role}</p>
+                                            {
+                                                user.isAdmin && <p>Admin</p>
+                                            }
                                         </td>
 
-                                        <th className="space-x-2">
+                                        <th className="flex flex-col gap-3">
                                             {
-                                                !isAdmin &&
-                                                <label
-                                                    htmlFor="my-modal-5"
-                                                    className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
-                                                >
-                                                    Make Admin
-                                                </label>
+                                                !user.isAdmin &&
+                                                <>
+                                                    <label
+                                                        onClick={() => handleMakeAdmin(user._id)}
+                                                        htmlFor="my-modal-5"
+                                                        className="btn btn-xs border-none text-white bg-green-500 hover:bg-orange-secondary"
+                                                    >
+                                                        Make Admin
+                                                    </label>
+                                                    <label
+                                                        onClick={() => handleDelete(user._id)}
+                                                        htmlFor="my-modal-5"
+                                                        className="btn btn-xs border-none text-white bg-red-500 hover:bg-orange-secondary"
+                                                    >
+                                                        Delete
+                                                    </label>
+                                                </>
                                             }
                                             {
-                                                role == "student" &&
+                                                user.role == "student" &&
                                                 <label
+                                                    onClick={() => handleMakeInstructor(user._id)}
                                                     htmlFor="my-modal-5"
                                                     className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
                                                 >
                                                     Make Instructor
                                                 </label>
                                             }
-                                            <label
-                                                    htmlFor="my-modal-5"
-                                                    className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
-                                                >
-                                                    Delete
-                                                </label>
+
                                         </th>
                                     </tr>
                                 )

@@ -19,6 +19,8 @@ const Dashboard = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
+                    setIsAdmin(data.isAdmin)
+                    setRole(data.role)
                 })
         }
     }, [user, loading])
