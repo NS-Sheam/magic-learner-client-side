@@ -5,20 +5,14 @@ const useClasses = () => {
     const { user, loading } = useAuth();
 
     const { refetch, data: classes = [] } = useQuery({
-        queryKey: ['instructors'],
-        enabled: !loading,
-        queryFn: async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/classes');
-                return response.data;
-            } catch (error) {
-                console.error('Error fetching instructors:', error);
-                throw error;
-            }
-        },
+        queryKey: ['classes'],
+        queryFn: async() => {
+            const res = await fetch('http://localhost:5000/classes');
+            return res.json();
+        }
     })
 
-    return [classes, refetch]
+    return [classes]
 
 }
 export default useClasses;

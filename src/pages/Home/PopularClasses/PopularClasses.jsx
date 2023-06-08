@@ -14,8 +14,8 @@ const PopularClasses = () => {
                 {
                     classes?.slice(0, 6).map(cl => <div
                         key={cl.id}
-                        className="card card-compact bg-base-100 shadow-xl">
-                        <figure><img src={cl.image} alt="Shoes" /></figure>
+                        className="card card-compact bg-base-100 shadow-xl p-4">
+                        <div><img className='lg:h-48 w-full' src={cl.image} alt={cl.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{cl.title}</h2>
                             <p>Enrolled: {cl.enrolledStudents} students</p>
