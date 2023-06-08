@@ -3,13 +3,25 @@ import { Link, Outlet } from 'react-router-dom';
 import logo from "../assets/logo.png"
 import useAuth from '../hooks/useAuth';
 import useAdmin from '../hooks/useAdmin';
+import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
-    const [userRole, isAdminLoading ] = useAdmin();
-    const { isAdmin, role } = userRole;
-    console.log(userRole, isAdminLoading);
-//  const isAdmin = true;
-//  const role = "instructor";
+    // const [userRole, isAdminLoading ] = useAdmin();
+    // const { isAdmin, role } = userRole;
+    // console.log(userRole, isAdminLoading);
+    const { user, loading } = useAuth();
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [role, setRole] = useState(null);
+
+    useEffect(() => {
+        if (!loading) {
+            fetch(`http://localhost:5000/users/admin/${user?.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+        }
+    }, [user, loading])
     const listItem = role === "instructor" ?
         <>
             <li className="my-1">
@@ -35,9 +47,6 @@ const Dashboard = () => {
                 </Link>
             </li>
         </>
-        if(isAdminLoading){
-            return <div>Loading...</div>
-        }
 
     return (
         <div className="drawer lg:drawer-open">
@@ -58,7 +67,7 @@ const Dashboard = () => {
                             <Link to={`/dashboard`}> Dashboard
                             </Link></li>
                         {
-                            isAdmin && 
+                            isAdmin &&
                             <li className="my-1">
                                 <Link to="/dashboard/allusers">Users
                                 </Link></li>

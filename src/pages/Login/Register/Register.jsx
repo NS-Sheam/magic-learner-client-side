@@ -1,6 +1,6 @@
 
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, json } from 'react-router-dom';
 import "./Register.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
@@ -8,18 +8,30 @@ import useAuth from "../../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser } = useAuth();
+    const { createUser, updateUserProfile } = useAuth();
 
     const onSubmit = data => {
         const { name, email, password, photo } = data;
         createUser(email, password)
         .then(async (result) => {
             const loggedUser = result.user;
-            await updateProfile(loggedUser, {
-                displayName: name,
-                photoURL: photo
-            });
-            console.log(loggedUser);
+            updateUserProfile(name, photo)
+            .then(() =>{
+                const saveUser = {name, email, role: "student", isAdmin: false}
+                fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                        "content-type" : "application/json"
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+            })
+            // console.log(loggedUser);
+            fetch
         })
         .catch(error=>{
             console.log(error);

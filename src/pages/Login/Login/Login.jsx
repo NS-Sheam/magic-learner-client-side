@@ -1,15 +1,28 @@
 
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
+    const {logIn} = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = data =>{
-        console.log(data);
+        const { email, password } = data;
+        console.log(email, password);
+        logIn(email, password)
+        .then(result => {
+            const loggedUser = result.user;
+            console.log(loggedUser);
+            navigate("/")
+        })
+        .catch(error =>{
+            console.log(error);
+        })
     }
     return (
         <div className="hero min-h-screen bg-secondaryB py-6">
@@ -33,7 +46,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input {...register("name", { required: true })} type="text" placeholder="password" className="input input-bordered" />
+                            <input {...register("password", { required: true })} type="text" placeholder="password" className="input input-bordered" />
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
@@ -45,6 +58,7 @@ const Login = () => {
                             <AiFillGoogleCircle className="text-2xl"/> <p className="text-xl">Login with Google</p>
                         </div>
                     </form>
+                    <p>Not have an account <Link to="/register" className="btn btn-link">Register</Link></p>
                 </div>
             </div>
         </div>

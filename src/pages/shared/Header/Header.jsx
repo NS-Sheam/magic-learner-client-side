@@ -6,8 +6,15 @@ import { AuthContext } from '../../../Providers/AuthProvider';
 import ActiveLink from './ActiveLink';
 import { Link } from 'react-router-dom';
 const Header = () => {
-    const {user} = useContext(AuthContext);
+    const {user, logOut} = useContext(AuthContext);
     // console.log(user);
+    const handleLogOut = () =>{
+        logOut()
+        .then()
+        .catch(error => {
+            console.log(error);
+        })
+    }
     const menuItems = <>
         <li>
             <ActiveLink to={`/`}>Home</ActiveLink>
@@ -78,7 +85,7 @@ const Header = () => {
                                 <li>
                                     <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
                                 </li>
-                                <li>
+                                <li onClick={handleLogOut}>
                                     <Link>
                                         Logout
                                     </Link>
