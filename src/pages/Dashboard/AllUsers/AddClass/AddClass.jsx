@@ -49,7 +49,7 @@ const AddClass = () => {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.insertedId) {
                         Swal.fire({
                             icon: 'success',
@@ -79,13 +79,13 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Instructor Name</span>
                             </label>
-                            <input type="text" placeholder="Instructor Name" name="instructor" className="input input-bordered" defaultValue={user?.displayName} />
+                            <input readOnly type="text" placeholder="Instructor Name" name="instructor" className="input input-bordered" defaultValue={user?.displayName} />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" name="email" className="input input-bordered" defaultValue={user?.email} />
+                            <input readOnly type="email" placeholder="email" name="email" className="input input-bordered" defaultValue={user?.email} />
                         </div>
                         <div className="form-control">
                             <label className="label">
