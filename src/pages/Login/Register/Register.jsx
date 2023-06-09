@@ -33,7 +33,6 @@ const Register = () => {
                 navigate("/");
             })
             // console.log(loggedUser);
-            fetch
         })
         .catch(error=>{
             console.log(error);
@@ -92,9 +91,6 @@ const Register = () => {
                         </div>
                         <div className="form-control mt-6">
                             <button type="submit" className="btn bg-bandOrange hover:bg-orange-300">Login</button>
-                        </div>
-                        <div className="flex text-xl justify-center items-center py-2 px-3 btn btn-outline">
-                            <AiFillGoogleCircle className="text-2xl" /> <p className="text-xl">Login with Google</p>
                         </div>
                     </form>
                 </div>

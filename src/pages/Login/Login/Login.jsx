@@ -7,22 +7,45 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
-    const {logIn} = useAuth();
+    const { logIn, signInWithGoogle } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = data =>{
+    const onSubmit = data => {
         const { email, password } = data;
         console.log(email, password);
         logIn(email, password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            navigate("/")
-        })
-        .catch(error =>{
-            console.log(error);
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                navigate("/")
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                const saveUser = { name: loggedUser.displayName, email: loggedUser.email, role: "student", isAdmin: false }
+                fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                navigate("/")
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     return (
         <div className="hero min-h-screen bg-secondaryB py-6">
@@ -54,8 +77,8 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <button type="submit" className="btn bg-bandOrange hover:bg-orange-300">Login</button>
                         </div>
-                        <div className="flex text-xl justify-center items-center py-2 px-3 btn btn-outline">
-                            <AiFillGoogleCircle className="text-2xl"/> <p className="text-xl">Login with Google</p>
+                        <div onClick={handleGoogleSignIn} className="flex text-xl justify-center items-center py-2 px-3 btn btn-outline">
+                            <AiFillGoogleCircle className="text-2xl" /> <p className="text-xl">Login with Google</p>
                         </div>
                     </form>
                     <p>Not have an account <Link to="/register" className="btn btn-link">Register</Link></p>
