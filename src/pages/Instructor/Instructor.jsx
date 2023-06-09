@@ -4,6 +4,7 @@ import useInstructor from '../../hooks/useInstructor';
 
 const Instructor = () => {
     const [instructors] = useInstructor();
+    console.log(instructors);
     return (
         <div>
             <SectionTitle

@@ -12,6 +12,7 @@ const Dashboard = () => {
     const { user, loading } = useAuth();
     const [isAdmin, setIsAdmin] = useState(false);
     const [role, setRole] = useState(null);
+    const [isAdminLoading, setIsAdminLoading] = useState(true)
 
     useEffect(() => {
         if (!loading) {
@@ -21,6 +22,7 @@ const Dashboard = () => {
                     console.log(data);
                     setIsAdmin(data.isAdmin)
                     setRole(data.role)
+                    setIsAdminLoading(false);
                 })
         }
     }, [user, loading])
@@ -49,6 +51,12 @@ const Dashboard = () => {
                 </Link>
             </li>
         </>
+
+        if(loading || isAdminLoading){
+            return <div className='flex justify-center items-center'>
+                <span className="loading loading-bars loading-lg"></span>
+            </div>
+        }
 
     return (
         <div className="drawer lg:drawer-open">
