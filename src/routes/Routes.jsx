@@ -8,6 +8,7 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AddClass from "../pages/Dashboard/AllUsers/AddClass/AddClass";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import Instructor from "../pages/Instructor/Instructor";
+import EnrolledClasses from "../pages/Dashboard/EnrolledClasses/EnrolledClasses";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: "addclass",
                 element: <AddClass />
+            },
+            {
+                path: "enrolledclass",
+                element: <EnrolledClasses />
             }
         ]
     }

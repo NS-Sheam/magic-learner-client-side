@@ -43,7 +43,7 @@ const Dashboard = () => {
                 </Link>
             </li>
             <li className="my-1">
-                <Link to={`/myclass`}> My Enrolled Classes
+                <Link to={`/dashboard/enrolledclass`}> My Enrolled Classes
                 </Link>
             </li>
             <li className="my-1">

@@ -3,7 +3,7 @@ import useInstructor from "../../../hooks/useInstructor";
 
 const PopularInstructors = () => {
     const [instructors] = useInstructor();
-    console.log(instructors);
+    // console.log(instructors);
     return (
         <div className="my-container lg:py-14">
             <SectionTitle
@@ -12,7 +12,7 @@ const PopularInstructors = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {
                     instructors?.slice(0, 8).map(instructor => <div 
-                    key={instructor.id} 
+                    key={instructor._id} 
                     className="card card-compact bg-base-100 shadow-xl p-4">
                     <div className="">
                       <img className="h-24 lg:h-56 w-full" src={instructor.image} alt={instructor.name} />
