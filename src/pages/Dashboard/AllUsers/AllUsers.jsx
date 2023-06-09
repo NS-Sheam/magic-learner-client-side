@@ -11,14 +11,14 @@ const AllUsers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.deletedCount > 0) {
                     refetch();
                 }
             })
     }
-    const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
+    const handleMakeAdmin = email => {
+        fetch(`http://localhost:5000/users?email=${email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -27,15 +27,15 @@ const AllUsers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.modifiedCount > 0) {
                     refetch();
                 }
             })
     }
 
-    const handleMakeInstructor = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
+    const handleMakeInstructor = email => {
+        fetch(`http://localhost:5000/users?email=${email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -103,7 +103,7 @@ const AllUsers = () => {
                                                 !user.isAdmin &&
                                                 <>
                                                     <label
-                                                        onClick={() => handleMakeAdmin(user._id)}
+                                                        onClick={() => handleMakeAdmin(user.email)}
                                                         htmlFor="my-modal-5"
                                                         className="btn btn-xs border-none text-white bg-green-500 hover:bg-orange-secondary"
                                                     >
@@ -121,7 +121,7 @@ const AllUsers = () => {
                                             {
                                                 user.role == "student" &&
                                                 <label
-                                                    onClick={() => handleMakeInstructor(user._id)}
+                                                    onClick={() => handleMakeInstructor(user.email)}
                                                     htmlFor="my-modal-5"
                                                     className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
                                                 >

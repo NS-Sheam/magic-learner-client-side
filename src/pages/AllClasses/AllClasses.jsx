@@ -1,9 +1,47 @@
+import { useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
+import useAllUsers from "../../hooks/useAllUsers";
+import useAuth from "../../hooks/useAuth";
 import useClasses from "../../hooks/useClasses";
+import Swal from "sweetalert2";
 
 const AllClasses = () => {
     const [classes, refetch] = useClasses();
+    const [allUsers] = useAllUsers();
+    const { user, loading } = useAuth();
     // console.log(classes);
+    const handleEnroll = id =>{
+        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({status: "enrolled", classId: id})
+        })
+        .then(res=> res.json())
+        .then(data => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your enroll done',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            if (data.error === "ClassId already exists in the array.") {
+                Swal.fire({
+                    title: 'You already added the class',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                  })
+            }
+        })
+    }
     return (
         <div>
             <SectionTitle
@@ -13,7 +51,7 @@ const AllClasses = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {
                     classes?.map(cl => <div
-                        key={cl.id}
+                        key={cl._id}
                         className="card card-compact bg-base-100 shadow-xl p-4">
                         <div><img className='lg:h-48 w-full' src={cl.image} alt={cl.title} /></div>
                         <div className="card-body text-center">
@@ -23,7 +61,7 @@ const AllClasses = () => {
                             <p>Fees: ${cl.price}</p>
 
                             <div className="card-actions justify-end">
-                                <button className="btn btn-xs bg-bandOrange">Enroll Now</button>
+                                <button onClick={()=> handleEnroll(cl._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
                             </div>
                         </div>
                     </div>)
