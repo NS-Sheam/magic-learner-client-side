@@ -1,6 +1,6 @@
 
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./Login.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
@@ -9,6 +9,8 @@ import useAuth from "../../../hooks/useAuth";
 const Login = () => {
     const { logIn, signInWithGoogle } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const navigate = useNavigate();
 
     const onSubmit = data => {
@@ -18,7 +20,7 @@ const Login = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                navigate("/")
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log(error);

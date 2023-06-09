@@ -9,6 +9,7 @@ import AddClass from "../pages/Dashboard/AllUsers/AddClass/AddClass";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import Instructor from "../pages/Instructor/Instructor";
 import EnrolledClasses from "../pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +41,9 @@ export const router = createBrowserRouter([
     },
     {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <PrivateRoutes>
+            <Dashboard />
+        </PrivateRoutes>,
         children: [
             {
                 path: "allusers",
@@ -53,7 +56,11 @@ export const router = createBrowserRouter([
             {
                 path: "enrolledclass",
                 element: <EnrolledClasses />
-            }
+            },
+            {
+                path: "allclass",
+                element: <AllClasses />
+            },
         ]
     }
 ]);
