@@ -6,7 +6,7 @@ const img_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 const AddClass = () => {
     const { user } = useAuth();
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
-    console.log(img_hosting_url);
+    // console.log(img_hosting_url);
 
     const handleAddClass = (event) => {
         event.preventDefault();
@@ -52,12 +52,26 @@ const AddClass = () => {
                 .then(data => {
                     // console.log(data);
                     if (data.insertedId) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Class Added',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+                    method: "PUT",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({ status: "enrolled", classes: title })
+                })
+                    .then(res => res.json())
+                    .then(updateData => {
+                        // console.log(updateData);
+                        if (updateData.modifiedCount > 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Class Added',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            form.reset();
+                        }
+                    })
                     }
                 });
             }

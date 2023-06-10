@@ -5,14 +5,13 @@ import useAuth from "../../hooks/useAuth";
 import useClasses from "../../hooks/useClasses";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
+import useAdmin from "../../hooks/useAdmin";
 
 const AllClasses = () => {
     const [classes, refetch] = useClasses();
     const { user, loading } = useAuth();
-
-    const [role, setRole] = useState(null);
-    const [isAdminLoading, setIsAdminLoading] = useState(true)
-    // console.log(classes);
+    const [userRole, isAdminLoading] = useAdmin();
+    const role = userRole?.role;
     const handleEnroll = id => {
         Swal.fire({
             title: 'Are you sure to added the class your enrollment list?',
@@ -57,17 +56,36 @@ const AllClasses = () => {
         })
 
     }
-    useEffect(() => {
-        if (!loading) {
-            fetch(`http://localhost:5000/users/admin/${user?.email}`)
+
+    const handleStatus = (id, status) => {
+        // console.log(id, status);
+        fetch(`http://localhost:5000/classes/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({status: status})
+                })
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data);
-                    setRole(data.role)
-                    setIsAdminLoading(false);
+                    console.log(data);
+                    if (data.modifiedCount) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: `${status} done`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        refetch();
+                    }
                 })
-        }
-    }, [user, loading])
+
+    }
+    if (loading || isAdminLoading) {
+        return <div className='h-screen flex justify-center items-center'>
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
     return (
         <div>
             <SectionTitle
@@ -76,20 +94,48 @@ const AllClasses = () => {
             />
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {
-                    classes?.map(cl => <div
-                        key={cl._id}
+                    classes?.map(singleClass => <div
+                        key={singleClass._id}
                         className="card card-compact bg-base-100 shadow-xl p-4">
-                        <div><img className='lg:h-48 w-full' src={cl.image} alt={cl.title} /></div>
+                        <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
                         <div className="card-body text-center">
-                            <h2 className="text-2xl text-center">{cl.title}</h2>
-                            <p>Enrolled: {cl.enrolledStudents} students</p>
-                            <p className="font-bold">{cl.availableSeat} seats are available</p>
-                            <p>Fees: ${cl.price}</p>
+                            <h2 className="text-2xl text-center">{singleClass.title}</h2>
+                            <p>Enrolled: {singleClass.enrolledStudents} students</p>
+                            <p className="font-bold">{singleClass.availableSeat} seats are available</p>
+                            <p>Fees: ${singleClass.price}</p>
 
                             {
-                                role === "student" &&
+                                !userRole?.isAdmin && role === "student" &&
                                 <div className="card-actions justify-end">
-                                    <button onClick={() => handleEnroll(cl._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
+                                    <button onClick={() => handleEnroll(singleClass._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
+                                </div>
+                            }
+                            {
+                                userRole?.isAdmin &&
+                                <div className="flex justify-end gap-2">
+                                    {
+                                        singleClass?.status === "pending" ?
+                                            <>
+                                                <button
+                                                    onClick={() => handleStatus(singleClass._id, "approved")}
+                                                    className="px-2 py-1 rounded-md border-2 font-bold text-white bg-green-700 hover:bg-green-600"
+                                                >
+                                                    Approve</button>
+                                                <button 
+                                                onClick={() => handleStatus(singleClass._id, "denied")}
+                                                className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
+                                                >Deny</button>
+                                            </> :
+                                            singleClass?.status === "denied" ?
+                                            <button
+                                                className="cursor-auto px-2 py-1 rounded-md border-2 text-red-500 border-red-500 font-bold"
+                                            >
+                                                Denied</button> :
+                                            <button
+                                                className="cursor-auto px-2 py-1 rounded-md border-2 text-green-500 border-green-500 font-bold"
+                                            >
+                                                Approved</button>
+                                    }
                                 </div>
                             }
                         </div>

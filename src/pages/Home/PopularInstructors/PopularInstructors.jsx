@@ -20,8 +20,8 @@ const PopularInstructors = () => {
                     <div className="text-center space-y-4">
                       <h2 className="text-2xl text-center">{instructor.name}</h2>
                      {
-                        instructor.classes?.map((cl, i) => <p key={i}>
-                            {cl}
+                        instructor.classes?.map((singleClass, i) => <p key={i}>
+                            {singleClass}
                         </p>)
                      }
                      <p className="font-bold">{instructor.email}</p>

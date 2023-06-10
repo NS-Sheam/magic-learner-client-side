@@ -21,6 +21,7 @@ const EnrolledClasses = () => {
                     description={"All your enrolled classes are Here"} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {/* TODO: adding enrolled student with previous one */}
                 {
                    myClassData?.length > 0 ? myClassData?.map(singleClass => <div
                         key={singleClass._id}
