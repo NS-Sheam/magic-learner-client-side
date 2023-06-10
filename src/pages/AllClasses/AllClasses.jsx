@@ -112,8 +112,8 @@ const AllClasses = () => {
                             <p>Fees: ${singleClass.price}</p>
 
                             {
-                                !userRole?.isAdmin &&
-                                 role === "student" || !role &&
+                              !role || !userRole?.isAdmin &&
+                                 role === "student" &&
                                 <div className="card-actions justify-end">
                                     <button onClick={() => handleEnroll(singleClass._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
                                 </div>
