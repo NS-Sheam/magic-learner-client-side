@@ -3,21 +3,13 @@ import SectionTitle from '../../../components/SectionTitle';
 import useAuth from '../../../hooks/useAuth';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import useMyClasses from '../../../hooks/useMyClasses';
 
 const SelectedClass = () => {
     const { user, loading } = useAuth();
-    const [enrollClass, setEnrollClass] = useState([]);
-    useEffect(() => {
-        if (!loading) {
-            fetch(`http://localhost:5000/users?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setEnrollClass(data);
-            })
-        }
-    }, [user, loading])
+    const [myClassData, classLoading, refetch] = useMyClasses();
     const handleDelete =() =>{
-
+        
     }
     const handlePay = () =>{
 
@@ -42,7 +34,7 @@ const SelectedClass = () => {
                     <tbody>
                         {/* table row */}
                         {
-                            enrollClass?.map((singleClass, i) => {
+                            myClassData?.map((singleClass, i) => {
                                 return (
                                     <tr key={i}>
                                         <td>{i}</td>

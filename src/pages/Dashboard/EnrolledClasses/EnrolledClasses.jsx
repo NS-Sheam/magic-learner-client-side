@@ -3,19 +3,12 @@ import SectionTitle from '../../../components/SectionTitle';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import useAuth from '../../../hooks/useAuth';
+import useMyClasses from '../../../hooks/useMyClasses';
 
 const EnrolledClasses = () => {
     const { user, loading } = useAuth();
-    const [enrollClass, setEnrollClass] = useState([]);
-    useEffect(() => {
-        if (!loading) {
-            fetch(`http://localhost:5000/users?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setEnrollClass(data);
-            })
-        }
-    }, [user, loading])
+    
+    const [myClassData, classLoading, refetch] = useMyClasses();
     return (
         <div>
             <div>
@@ -24,7 +17,7 @@ const EnrolledClasses = () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {
-                    enrollClass?.map(cl => <div
+                    myClassData?.map(cl => <div
                         key={cl._id}
                         className="card card-compact bg-base-100 shadow-xl p-4">
                         <div><img className='lg:h-48 w-full' src={cl.image} alt={cl.title} /></div>
