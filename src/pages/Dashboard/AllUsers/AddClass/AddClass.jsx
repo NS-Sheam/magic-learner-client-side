@@ -37,7 +37,8 @@ const AddClass = () => {
                     image: imgURL,
                     capacity,
                     price,
-                    description
+                    description, 
+                    status: "pending"
                 };
                 
                 fetch("http://localhost:5000/classes", {

@@ -36,7 +36,7 @@ const Dashboard = () => {
             </li>
             <li className="my-1">
                 {/* TODO: make my class for instructor */}
-                <Link to={`/dashboard/myclass`}> My Class
+                <Link to={`/dashboard/myclasses`}> My Class
                 </Link>
             </li>
         </>

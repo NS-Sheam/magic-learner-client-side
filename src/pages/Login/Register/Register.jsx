@@ -91,7 +91,7 @@ const Register = () => {
                             <input type="password"  {...register("confirm", { required: true })} placeholder="confirm password" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn bg-bandOrange hover:bg-orange-300">Login</button>
+                            <button type="submit" className="btn bg-bandOrange hover:bg-orange-300">Register</button>
                         </div>
                     </form>
                 </div>
