@@ -40,7 +40,7 @@ const Dashboard = () => {
         </>
         : <>
             <li className="my-1">
-                <Link to={`/addclass`}> My Selected Classes
+                <Link to={`/dashboard/selectedclass`}> My Selected Classes
                 </Link>
             </li>
             <li className="my-1">
