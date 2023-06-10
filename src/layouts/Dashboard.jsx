@@ -35,6 +35,7 @@ const Dashboard = () => {
                 </Link>
             </li>
             <li className="my-1">
+                {/* TODO: make my class for instructor */}
                 <Link to={`/dashboard/myclass`}> My Class
                 </Link>
             </li>
@@ -49,6 +50,7 @@ const Dashboard = () => {
                 </Link>
             </li>
             <li className="my-1">
+                {/* TODO: make payment for instructor */}
                 <Link to={`/myclass`}> Payment
                 </Link>
             </li>

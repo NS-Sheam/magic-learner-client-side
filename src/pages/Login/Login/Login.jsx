@@ -68,6 +68,7 @@ const Login = () => {
                             <input type="text" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
                         </div>
                         <div className="form-control">
+                            {/* TODO: Hide and Unhide password */}
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>

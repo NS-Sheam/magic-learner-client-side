@@ -87,6 +87,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Confirm Password</span>
                             </label>
+                            {/* TODO: Confirm Functionality */}
                             <input type="password"  {...register("confirm", { required: true })} placeholder="confirm password" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
