@@ -14,36 +14,47 @@ const AllClasses = () => {
     const [isAdminLoading, setIsAdminLoading] = useState(true)
     // console.log(classes);
     const handleEnroll = id => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({ status: "enrolled", classId: id })
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.modifiedCount > 0) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Your enroll done',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-                if (data.error === "ClassId already exists in the array.") {
-                    Swal.fire({
-                        title: 'You already added the class',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
+        Swal.fire({
+            title: 'Are you sure to added the class your enrollment list?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Enroll Class'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/users?email=${user?.email}`, {
+                    method: "PUT",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({ status: "enrolled", classId: id })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data);
+                        if (data.modifiedCount > 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Your enroll done',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                        if (data.error === "ClassId already exists in the array.") {
+                            Swal.fire({
+                                title: 'You already added the class',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutUp'
+                                }
+                            })
                         }
                     })
-                }
-            })
+            }
+        })
 
     }
     useEffect(() => {
