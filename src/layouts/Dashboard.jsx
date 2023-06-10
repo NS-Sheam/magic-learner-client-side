@@ -8,11 +8,13 @@ import Footer from '../pages/shared/Footer/Footer';
 
 const Dashboard = () => {
     const [userRole, isAdminLoading] = useAdmin();
-    // console.log(userRole, isAdminLoading);
-    // const { isAdmin, role } = userRole;
-    // console.log(userRole, isAdminLoading);
-    const { user, loading } = useAuth();
-    const [isAdmin, setIsAdmin] = useState(false);
+    if ( isAdminLoading) {
+        return <div className='flex justify-center items-center'>
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
+
+    const { isAdmin } = userRole;
     // const [role, setRole] = useState(userRole);
     // const [isAdminLoading, setIsAdminLoading] = useState(true)
 
@@ -55,11 +57,6 @@ const Dashboard = () => {
                 </Link>
             </li>
         </>
-    if ( isAdminLoading) {
-        return <div className='flex justify-center items-center'>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
 
     return (
         <>
@@ -80,7 +77,7 @@ const Dashboard = () => {
                             {
                                 isAdmin &&
                                 <li className="my-1">
-                                    <Link to="/dashboard/allusers">Users
+                                    <Link to="/dashboard/allusers">Manage Users
                                     </Link></li>
                             }
                             {listItem}
@@ -89,7 +86,7 @@ const Dashboard = () => {
                             <li><Link to="/">Home
                             </Link></li>
                             <li>
-                                <Link to="/dashboard/allclass">Classes
+                                <Link to="/dashboard/allclass">{isAdmin ? "Manage Classes" : "Classes"}
                                 </Link>
                             </li>
                         </ul>

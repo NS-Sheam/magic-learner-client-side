@@ -66,7 +66,7 @@ const SelectedClass = () => {
                 <tbody>
                     {/* table row */}
                     {
-                        myClassData.length > 0 ? myClassData?.map((singleClass, i) => {
+                        myClassData?.map((singleClass, i) => {
                             return (
                                 <tr key={i}>
                                     <td>{i + 1}</td>
@@ -113,11 +113,14 @@ const SelectedClass = () => {
                                     </th>
                                 </tr>
                             )
-                        }) :
-                            <h2 className="text-xl text-center font-bold">No class selected</h2>
+                        })
                     }
                     {/* table row finished */}
                 </tbody>
+                {
+                    myClassData?.length < 0 &&
+                    <h2 className="text-xl text-center font-bold">No class selected</h2>
+                }
             </table>
         </div>
     );

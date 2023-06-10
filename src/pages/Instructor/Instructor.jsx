@@ -4,7 +4,7 @@ import useInstructor from '../../hooks/useInstructor';
 
 const Instructor = () => {
     const [instructors] = useInstructor();
-    console.log(instructors);
+    // console.log(instructors);
     return (
         <div>
             <SectionTitle
@@ -14,15 +14,16 @@ const Instructor = () => {
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {
                     instructors?.map(instructor => <div 
-                    key={instructor.id} 
+                    key={instructor._id} 
                     className="card card-compact bg-base-100 shadow-xl p-4">
                     <div className="">
                       <img className="h-24 lg:h-56 w-full" src={instructor.image} alt={instructor.name} />
                     </div>
                     <div className="text-center space-y-4">
                       <h2 className="text-2xl text-center">{instructor.name}</h2>
+                      <p className="font-bold">{instructor.classes?.length} classes taken</p>
                      {
-                        instructor.classes?.map((cl, i) => <p key={i}>
+                        instructor.classes?.slice(0,2).map((cl, i) => <p key={i}>
                             {cl}
                         </p>)
                      }

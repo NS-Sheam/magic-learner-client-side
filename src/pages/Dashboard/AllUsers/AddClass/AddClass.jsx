@@ -15,6 +15,7 @@ const AddClass = () => {
         const email = form.email.value;
         const title = form.title.value;
         const imageFile = form.photo.files[0];
+        const availableSeat = form.availableseat.value
         const capacity = form.capacity.value;
         const price = form.price.value;
         const description = form.description.value;
@@ -36,6 +37,7 @@ const AddClass = () => {
                     title,
                     image: imgURL,
                     capacity,
+                    availableSeat,
                     price,
                     description, 
                     status: "pending"
@@ -112,7 +114,7 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Available Seat</span>
                             </label>
-                            <input type="text" placeholder="Available Seat" name="availableSeat" className="input input-bordered" />
+                            <input type="text" placeholder="Available Seat" name="availableseat" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -125,7 +127,7 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
-                            <input type="text" placeholder="Price $" name="price" className="input input-bordered" />
+                            <input type="number" placeholder="Price $" name="price" className="input input-bordered" />
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">

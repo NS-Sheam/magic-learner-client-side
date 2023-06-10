@@ -15,11 +15,11 @@ const Login = () => {
 
     const onSubmit = data => {
         const { email, password } = data;
-        console.log(email, password);
+        // console.log(email, password);
         logIn(email, password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+                // console.log(loggedUser);
                 navigate(from, { replace: true });
             })
             .catch(error => {
@@ -41,7 +41,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                     })
                 navigate("/")
             })

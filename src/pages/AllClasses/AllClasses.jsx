@@ -6,13 +6,20 @@ import useClasses from "../../hooks/useClasses";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import useAdmin from "../../hooks/useAdmin";
+import { handleDeleteClass } from "../../utilities/handleDeleteClass";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const AllClasses = () => {
-    const [classes,classLoading, refetch] = useClasses();
+    const [classes, classLoading, refetch] = useClasses();
     const { user, loading } = useAuth();
     const [userRole, isAdminLoading] = useAdmin();
     const role = userRole?.role;
+    const location = useLocation();
+    const navigate = useNavigate();
     const handleEnroll = id => {
+        if (!user) {
+            return Swal.fire('Please login first to enroll')
+        } // TODO: enrolled student wiht Math.floor(Math.random() * 100)
         Swal.fire({
             title: 'Are you sure to added the class your enrollment list?',
             icon: 'question',
@@ -60,25 +67,25 @@ const AllClasses = () => {
     const handleStatus = (id, status) => {
         // console.log(id, status);
         fetch(`http://localhost:5000/classes/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({status: status})
-                })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.modifiedCount) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: `${status} done`,
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        refetch();
-                    }
-                })
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ status: status })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: `${status} done`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+            })
 
     }
     if (loading || isAdminLoading || classLoading) {
@@ -100,12 +107,13 @@ const AllClasses = () => {
                         <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{singleClass.title}</h2>
-                            <p>Enrolled: {singleClass.enrolledStudents} students</p>
-                            <p className="font-bold">{singleClass.availableSeat || singleClass.capacity} seats are available</p>
+                            <p>Enrolled: {singleClass.enrolledStudents || Math.floor(Math.random() * 100)} students</p>
+                            <p className="font-bold">{singleClass.availableSeat || singleClass.capacity || 0} seats are available</p>
                             <p>Fees: ${singleClass.price}</p>
 
                             {
-                                !userRole?.isAdmin && role === "student" &&
+                                !userRole?.isAdmin &&
+                                 role === "student" || !role &&
                                 <div className="card-actions justify-end">
                                     <button onClick={() => handleEnroll(singleClass._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
                                 </div>
@@ -121,21 +129,26 @@ const AllClasses = () => {
                                                     className="px-2 py-1 rounded-md border-2 font-bold text-white bg-green-700 hover:bg-green-600"
                                                 >
                                                     Approve</button>
-                                                <button 
-                                                onClick={() => handleStatus(singleClass._id, "denied")}
-                                                className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
+                                                <button
+                                                    onClick={() => handleStatus(singleClass._id, "denied")}
+                                                    className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
                                                 >Deny</button>
                                             </> :
                                             singleClass?.status === "denied" ?
-                                            <button
-                                                className="cursor-auto px-2 py-1 rounded-md border-2 text-red-500 border-red-500 font-bold"
-                                            >
-                                                Denied</button> :
-                                            <button
-                                                className="cursor-auto px-2 py-1 rounded-md border-2 text-green-500 border-green-500 font-bold"
-                                            >
-                                                Approved</button>
+                                                <button
+                                                    className="cursor-auto px-2 py-1 rounded-md border-2 text-red-500 border-red-500 font-bold"
+                                                >
+                                                    Denied</button> :
+                                                <button
+                                                    className="cursor-auto px-2 py-1 rounded-md border-2 text-green-500 border-green-500 font-bold"
+                                                >
+                                                    Approved</button>
                                     }
+                                    <button
+                                        onClick={() => handleDeleteClass(singleClass._id, refetch)}
+                                        className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
+                                    >
+                                        Delete Class</button>
                                 </div>
                             }
                         </div>
