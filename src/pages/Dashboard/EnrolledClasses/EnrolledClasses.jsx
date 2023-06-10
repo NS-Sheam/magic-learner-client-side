@@ -8,12 +8,14 @@ const EnrolledClasses = () => {
     const { user, loading } = useAuth();
     const [enrollClass, setEnrollClass] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`)
+        if (!loading) {
+            fetch(`http://localhost:5000/users?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setEnrollClass(data);
             })
-    }, [])
+        }
+    }, [user, loading])
     return (
         <div>
             <div>
