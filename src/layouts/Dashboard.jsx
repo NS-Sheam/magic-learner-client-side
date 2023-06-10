@@ -7,27 +7,28 @@ import { useEffect, useState } from 'react';
 import Footer from '../pages/shared/Footer/Footer';
 
 const Dashboard = () => {
-    // const [userRole, isAdminLoading ] = useAdmin();
+    const [userRole, isAdminLoading] = useAdmin();
+    // console.log(userRole, isAdminLoading);
     // const { isAdmin, role } = userRole;
     // console.log(userRole, isAdminLoading);
     const { user, loading } = useAuth();
     const [isAdmin, setIsAdmin] = useState(false);
-    const [role, setRole] = useState(null);
-    const [isAdminLoading, setIsAdminLoading] = useState(true)
+    // const [role, setRole] = useState(userRole);
+    // const [isAdminLoading, setIsAdminLoading] = useState(true)
 
-    useEffect(() => {
-        if (!loading) {
-            fetch(`http://localhost:5000/users/admin/${user?.email}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    setIsAdmin(data.isAdmin)
-                    setRole(data.role)
-                    setIsAdminLoading(false);
-                })
-        }
-    }, [user, loading])
-    const listItem = role === "instructor" ?
+    // useEffect(() => {
+    //     if (!loading) {
+    //         fetch(`http://localhost:5000/users/admin/${user?.email}`)
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 console.log(data);
+    //                 // setIsAdmin(data.isAdmin)
+    //                 // setRole(data.role)
+    //                 // setIsAdminLoading(false);
+    //             })
+    //     }
+    // }, [user, loading])
+    const listItem = userRole?.role === "instructor" ?
         <>
             <li className="my-1">
                 <Link to={`/dashboard/addclass`}> Add a Class
@@ -52,8 +53,7 @@ const Dashboard = () => {
                 </Link>
             </li>
         </>
-
-    if (loading || isAdminLoading) {
+    if ( isAdminLoading) {
         return <div className='flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
         </div>

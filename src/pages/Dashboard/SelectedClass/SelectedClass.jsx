@@ -14,6 +14,11 @@ const SelectedClass = () => {
     const handlePay = () =>{
 
     }
+    if ( loading || classLoading) {
+        return <div className='flex justify-center items-center'>
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
     return (
         <div>
             <div>
@@ -34,10 +39,10 @@ const SelectedClass = () => {
                     <tbody>
                         {/* table row */}
                         {
-                            myClassData?.map((singleClass, i) => {
+                           myClassData.length > 0 ? myClassData?.map((singleClass, i) => {
                                 return (
                                     <tr key={i}>
-                                        <td>{i}</td>
+                                        <td>{i+1}</td>
                                         <td>
                                             <div className="flex items-center space-x-3">
                                                 <div className="avatar">
@@ -81,7 +86,8 @@ const SelectedClass = () => {
                                         </th>
                                     </tr>
                                 )
-                            })
+                            }) :
+                            <h2 className="text-xl text-center font-bold">No class selected</h2>
                         }
                         {/* table row finished */}
                     </tbody>

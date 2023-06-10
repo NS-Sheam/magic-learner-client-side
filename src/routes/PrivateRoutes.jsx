@@ -6,18 +6,21 @@ const PrivateRoutes = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
 
-    if (loading) {
-        return <div className="h-screen flex justify-center items-center">
-            <button className="btn loading bg-orange-primary border-none">loading</button>
-        </div>
+    // if (loading) {
+    //     return <div className="h-screen flex justify-center items-center">
+    //         <button className="loading loading-bars loading-lg">loading</button>
+    //     </div>
 
-    }
+    // }
 
-    if (user?.email) {
+    if (!loading && user?.email) {
         return children;
     }
 
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+    if (!loading) {
+        return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+        
+    }
 };
 
 export default PrivateRoutes;

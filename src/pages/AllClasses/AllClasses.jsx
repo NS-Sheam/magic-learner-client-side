@@ -8,7 +8,6 @@ import { useEffect } from "react";
 
 const AllClasses = () => {
     const [classes, refetch] = useClasses();
-    const [allUsers] = useAllUsers();
     const { user, loading } = useAuth();
 
     const [role, setRole] = useState(null);
