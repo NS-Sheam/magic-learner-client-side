@@ -1,12 +1,12 @@
 import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useClasses from "../../../hooks/useClasses";
+import { handleDeleteClass } from "../../../utilities/handleDeleteClass";
 
 const MyClasses = () => {
     const [classes, classLoading, refetch] = useClasses();
     const { user, loading } = useAuth();
     const filterMyClasses = classes?.filter(singleClass => singleClass.instructor === user.displayName)
-    console.log(filterMyClasses);
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
@@ -28,7 +28,7 @@ const MyClasses = () => {
                             <p className="font-bold">{singleClass.availableSeat} seats are available</p>
                             <p>Fees: ${singleClass.price}</p>
 
-                            <div className="card-actions justify-end">
+                            <div className="card-actions justify-end gap-2">
                                 <button
                                     className={
                                         `cursor-auto px-2 py-1 rounded-md border-2 font-bold ${singleClass?.status === "pending" ?
@@ -44,6 +44,7 @@ const MyClasses = () => {
                                                 singleClass?.status === "denied" ? "Denied" : ""
                                     }
                                 </button>
+                                <button onClick={() => handleDeleteClass(singleClass._id, refetch)} className="text-white font-bold px-2 py-1 rounded-md bg-red-500">Delete Class</button>
                             </div>
                         </div>
                     </div>)

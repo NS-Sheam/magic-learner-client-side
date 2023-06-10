@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import useAdmin from "../../hooks/useAdmin";
 
 const AllClasses = () => {
-    const [classes, refetch] = useClasses();
+    const [classes,classLoading, refetch] = useClasses();
     const { user, loading } = useAuth();
     const [userRole, isAdminLoading] = useAdmin();
     const role = userRole?.role;
@@ -81,7 +81,7 @@ const AllClasses = () => {
                 })
 
     }
-    if (loading || isAdminLoading) {
+    if (loading || isAdminLoading || classLoading) {
         return <div className='h-screen flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
         </div>
@@ -101,7 +101,7 @@ const AllClasses = () => {
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{singleClass.title}</h2>
                             <p>Enrolled: {singleClass.enrolledStudents} students</p>
-                            <p className="font-bold">{singleClass.availableSeat} seats are available</p>
+                            <p className="font-bold">{singleClass.availableSeat || singleClass.capacity} seats are available</p>
                             <p>Fees: ${singleClass.price}</p>
 
                             {
