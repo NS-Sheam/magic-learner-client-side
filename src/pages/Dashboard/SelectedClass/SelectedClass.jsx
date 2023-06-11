@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import useMyClasses from '../../../hooks/useMyClasses';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const SelectedClass = () => {
     const { user, loading } = useAuth();
@@ -94,21 +95,20 @@ const SelectedClass = () => {
                                     </td>
 
                                     <th className="flex flex-col gap-3">
-
+                                {/* TODO: payment page */}
                                         <label
                                             onClick={() => handleDelete(singleClass._id)}
-                                            htmlFor="my-modal-5"
                                             className="btn btn-xs border-none text-white bg-red-500 hover:bg-orange-secondary"
                                         >
                                             Delete
                                         </label>
-                                        <label
-                                            onClick={() => handlePay()}
-                                            htmlFor="my-modal-5"
-                                            className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
-                                        >
-                                            Pay
-                                        </label>
+                                        <Link to="/dashboard/payment">
+                                            <label
+                                                className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
+                                            >
+                                                Pay
+                                            </label>
+                                        </Link>
 
                                     </th>
                                 </tr>

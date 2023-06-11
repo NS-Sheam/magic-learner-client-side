@@ -108,6 +108,7 @@ const AllClasses = () => {
                         <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{singleClass.title}</h2>
+                            <p className="font-bold">{singleClass.instructor}</p>
                             <p>Enrolled: {singleClass.enrolledStudents || Math.floor(Math.random() * 100)} students</p>
                             <p className="font-bold">{singleClass.availableSeat || singleClass.capacity || 0} seats are available</p>
                             <p>Fees: ${singleClass.price}</p>

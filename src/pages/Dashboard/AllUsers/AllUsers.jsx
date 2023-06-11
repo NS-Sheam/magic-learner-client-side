@@ -104,14 +104,12 @@ const AllUsers = () => {
                                                 <>
                                                     <label
                                                         onClick={() => handleMakeAdmin(user.email)}
-                                                        htmlFor="my-modal-5"
                                                         className="btn btn-xs border-none text-white bg-green-500 hover:bg-orange-secondary"
                                                     >
                                                         Make Admin
                                                     </label>
                                                     <label
                                                         onClick={() => handleDelete(user._id)}
-                                                        htmlFor="my-modal-5"
                                                         className="btn btn-xs border-none text-white bg-red-500 hover:bg-orange-secondary"
                                                     >
                                                         Delete
@@ -122,7 +120,6 @@ const AllUsers = () => {
                                                 user.role == "student" &&
                                                 <label
                                                     onClick={() => handleMakeInstructor(user.email)}
-                                                    htmlFor="my-modal-5"
                                                     className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
                                                 >
                                                     Make Instructor
