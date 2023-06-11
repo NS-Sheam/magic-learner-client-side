@@ -20,7 +20,6 @@ const AllClasses = () => {
     const [selectedClass, setSelectedClass] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [feedbackMassage, setFeedbackMassage] = useState(null);
-    console.log(feedbackMassage);
     const handleEnroll = id => {
         if (!user) {
             return Swal.fire('Please login first to enroll')

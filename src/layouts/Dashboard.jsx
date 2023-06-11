@@ -63,7 +63,7 @@ const Dashboard = () => {
         <>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center bg-secondaryBg py-16">
+                <div className="drawer-content flex flex-col items-center justify-center bg-secondaryBg py-16 px-4">
                     <Outlet />
                     <label htmlFor="my-drawer-2" className="absolute top-0 right-0 text-black m-4 p-4 border border-black rounded-md drawer-button lg:hidden"><FaBars/></label>
                 </div>
