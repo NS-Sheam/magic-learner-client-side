@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useClasses from "../../../hooks/useClasses";
@@ -6,7 +7,8 @@ import { handleDeleteClass } from "../../../utilities/handleDeleteClass";
 const MyClasses = () => {
     const [classes, classLoading, refetch] = useClasses();
     const { user, loading } = useAuth();
-    const filterMyClasses = classes?.filter(singleClass => singleClass.instructor === user.displayName)
+    const filterMyClasses = classes?.filter(singleClass => singleClass.instructor === user.displayName);
+    const navigate = useNavigate();
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
@@ -24,7 +26,7 @@ const MyClasses = () => {
                         <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{singleClass.title}</h2>
-                            <p>Enrolled: {singleClass.enrolledStudents} students</p>
+                            <p>Enrolled: {singleClass.enrolledStudents || (singleClass.capacity - singleClass.availableSeat)} students</p>
                             <p className="font-bold">{singleClass.availableSeat} seats are available</p>
                             <p>Fees: ${singleClass.price}</p>
 
@@ -44,6 +46,20 @@ const MyClasses = () => {
                                                 singleClass?.status === "denied" ? "Denied" : ""
                                     }
                                 </button>
+                                <button
+                                    onClick={() =>
+                                        navigate('/dashboard/updateclass', {
+                                            state: { singleClass: singleClass },
+                                            replace: true
+                                        })
+                                    }
+                                    className="text-white font-bold px-2 py-1 rounded-md bg-orange-400">
+                                    Update Class
+                                </button>
+                                {
+                                    singleClass?.status === "denied" &&
+                                    <button onClick={() => { }} className="text-white font-bold px-2 py-1 rounded-md bg-blue-600">Feedback</button>
+                                }
                                 <button onClick={() => handleDeleteClass(singleClass._id, refetch)} className="text-white font-bold px-2 py-1 rounded-md bg-red-500">Delete Class</button>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
+import SectionTitle from "../../../../components/SectionTitle";
 const img_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 const AddClass = () => {
     const { user } = useAuth();
@@ -85,7 +86,8 @@ const AddClass = () => {
 
     return (
         <div className="hero bg-base-200 min-h-screen px-4 lg:px-10 py-5">
-            <div className="">
+             <SectionTitle heading={"Add New Class"}
+                description={"Add a new class."} />
                 <div className="text-center my-10 space-x-4">
                     <h1 className="text-2xl lg:text-4xl font-bold my-4 lg:my-8 text-center text-orange-primary">Add Toys</h1>
                     <p className=" text-blue-dark">Attention Toy Sellers! Start showcasing your amazing collection of toys on our platform and connect with toy enthusiasts from all over the world. Adding your toys to our website is quick and easy.</p>
@@ -114,13 +116,13 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Available Seat</span>
                             </label>
-                            <input type="text" placeholder="Available Seat" name="availableseat" className="input input-bordered" />
+                            <input type="number" placeholder="Available Seat" name="availableseat" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Capacity</span>
                             </label>
-                            <input type="text" placeholder="Capacity" name="capacity" className="input input-bordered" />
+                            <input type="number" placeholder="Capacity" name="capacity" className="input input-bordered" />
                         </div>
                         
                         <div className="form-control">
@@ -146,7 +148,6 @@ const AddClass = () => {
                         </div>
                     </div>
                 </form>
-            </div>
         </div>
     );
 };
