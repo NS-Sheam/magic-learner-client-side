@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import useAdmin from "../../hooks/useAdmin";
 import { handleDeleteClass } from "../../utilities/handleDeleteClass";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import FeedBackModal from "../../components/FeedBackModal";
 
 const AllClasses = () => {
     const [classes, classLoading, refetch] = useClasses();
@@ -16,6 +17,10 @@ const AllClasses = () => {
     const role = userRole?.role;
     const location = useLocation();
     const navigate = useNavigate();
+    const [selectedClass, setSelectedClass] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [feedbackMassage, setFeedbackMassage] = useState(null);
+    console.log(feedbackMassage);
     const handleEnroll = id => {
         if (!user) {
             return Swal.fire('Please login first to enroll')
@@ -66,13 +71,19 @@ const AllClasses = () => {
     }
 
     const handleStatus = (id, status) => {
+        const requestBody = {
+            status: status
+        }
+        if (feedbackMassage !== null) {
+            requestBody.feedback = feedbackMassage;
+          }
         // console.log(id, status);
         fetch(`http://localhost:5000/classes/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ status: status })
+            body: JSON.stringify(requestBody)
         })
             .then(res => res.json())
             .then(data => {
@@ -95,7 +106,7 @@ const AllClasses = () => {
         </div>
     }
     return (
-        <div>
+        <div className="">
             <SectionTitle
                 heading={"All Classes are here"}
                 description={"All classe of the school are here"}
@@ -104,7 +115,7 @@ const AllClasses = () => {
                 {
                     classes?.map(singleClass => <div
                         key={singleClass._id}
-                        className="card card-compact bg-base-100 shadow-xl p-4">
+                        className="card card-compact bg-base-100 shadow-xl p-4 relative">
                         <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{singleClass.title}</h2>
@@ -132,7 +143,10 @@ const AllClasses = () => {
                                                 >
                                                     Approve</button>
                                                 <button
-                                                    onClick={() => handleStatus(singleClass._id, "denied")}
+                                                    onClick={() => {
+                                                        setModalOpen(true)
+                                                        setSelectedClass(singleClass)
+                                                    }}
                                                     className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
                                                 >Deny</button>
                                             </> :
@@ -156,7 +170,17 @@ const AllClasses = () => {
                         </div>
                     </div>)
                 }
+
             </div>
+            {
+                modalOpen &&
+                <FeedBackModal
+                    setModalOpen={setModalOpen}
+                    handleStatus={handleStatus}
+                    selectedClass={selectedClass}
+                    setFeedbackMassage={setFeedbackMassage}
+                />
+            }
         </div>
     );
 };

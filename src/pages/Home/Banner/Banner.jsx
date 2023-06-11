@@ -8,6 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 const Banner = () => {
     const bannerLeft = (img) => <div className="hero h-[700px]">
+        {/* TODO: make small banner for mobile devices */}
         <div className="hero-content text-neutral-content">
             <div
                 className="my-container w-1/2 space-y-4 text-left"

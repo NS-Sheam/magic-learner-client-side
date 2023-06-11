@@ -3,11 +3,15 @@ import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useClasses from "../../../hooks/useClasses";
 import { handleDeleteClass } from "../../../utilities/handleDeleteClass";
+import { useState } from "react";
+import FeedBackModal from "../../../components/FeedBackModal";
 
 const MyClasses = () => {
     const [classes, classLoading, refetch] = useClasses();
     const { user, loading } = useAuth();
     const filterMyClasses = classes?.filter(singleClass => singleClass.instructor === user.displayName);
+    const [selectedClass, setSelectedClass] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>
@@ -58,12 +62,22 @@ const MyClasses = () => {
                                 </button>
                                 {
                                     singleClass?.status === "denied" &&
-                                    <button onClick={() => { }} className="text-white font-bold px-2 py-1 rounded-md bg-blue-600">Feedback</button>
+                                    <button onClick={() => {
+                                        setModalOpen(true)
+                                        setSelectedClass(singleClass)
+                                    }} className="text-white font-bold px-2 py-1 rounded-md bg-blue-600">Feedback</button>
                                 }
                                 <button onClick={() => handleDeleteClass(singleClass._id, refetch)} className="text-white font-bold px-2 py-1 rounded-md bg-red-500">Delete Class</button>
                             </div>
                         </div>
                     </div>)
+                }
+                {
+                    modalOpen &&
+                    <FeedBackModal
+                        setModalOpen={setModalOpen}
+                        selectedClass={selectedClass}
+                    />
                 }
             </div>
         </div>
