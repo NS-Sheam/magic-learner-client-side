@@ -39,13 +39,14 @@ const AllClasses = () => {
                     .then(res => res.json())
                     .then(data => {
                         // console.log(data);
-                        if (data.modifiedCount > 0) {
+                        if (data.userResult?.modifiedCount > 0) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Your enroll done',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            refetch();
                         }
                         if (data.error === "ClassId already exists in the array.") {
                             Swal.fire({
@@ -112,8 +113,8 @@ const AllClasses = () => {
                             <p>Fees: ${singleClass.price}</p>
 
                             {
-                              !role || !userRole?.isAdmin &&
-                                 role === "student" &&
+                                !role || !userRole?.isAdmin &&
+                                role === "student" &&
                                 <div className="card-actions justify-end">
                                     <button onClick={() => handleEnroll(singleClass._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
                                 </div>
