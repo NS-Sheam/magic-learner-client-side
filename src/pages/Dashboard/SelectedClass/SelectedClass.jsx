@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 const SelectedClass = () => {
     const { user, loading } = useAuth();
     const [myClassData, classLoading, refetch] = useMyClasses();
+    const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass.price + sum, 0);
+    // console.log(totalAmount);
     const handleDelete = id => {
         Swal.fire({
             title: 'Are you sure to want to delete?',
@@ -53,6 +55,17 @@ const SelectedClass = () => {
                 <SectionTitle heading={"Selected Classes"}
                     description={"All your selected classes are Here. You can edit the classes."} />
             </div>
+            <div className='flex justify-end items-center gap-4 my-4'>
+                <p className='text-2xl font-bold'>You have to pay ${totalAmount}</p>
+                <Link to="/dashboard/payment">
+                    <label
+                        className="btn btn-md text-xl font-bold border-none text-white bg-bandOrange hover:bg-orange-secondary"
+                    >
+                        Pay Now
+                    </label>
+                </Link>
+
+            </div>
             <table className="table w-full">
                 {/* head */}
                 <thead>
@@ -91,25 +104,17 @@ const SelectedClass = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <p>{singleClass.price}</p>
+                                        <p>${singleClass.price}</p>
                                     </td>
 
-                                    <th className="flex flex-col gap-3">
-                                {/* TODO: payment page */}
+                                    <th className="">
+                                        {/* TODO: payment page */}
                                         <label
                                             onClick={() => handleDelete(singleClass._id)}
                                             className="btn btn-xs border-none text-white bg-red-500 hover:bg-orange-secondary"
                                         >
                                             Delete
                                         </label>
-                                        <Link to="/dashboard/payment">
-                                            <label
-                                                className="btn btn-xs border-none text-white bg-bandOrange hover:bg-orange-secondary"
-                                            >
-                                                Pay
-                                            </label>
-                                        </Link>
-
                                     </th>
                                 </tr>
                             )

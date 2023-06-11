@@ -43,13 +43,14 @@ const AllClasses = () => {
                     .then(res => res.json())
                     .then(data => {
                         // console.log(data);
-                        if (data.userResult?.modifiedCount > 0) {
+                        if (data?.modifiedCount > 0) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Your enroll done',
+                                title: 'Your selection done',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            navigate("/dashboard/payment")
                             refetch();
                         }
                         if (data.error === "ClassId already exists in the array.") {
