@@ -37,6 +37,32 @@ const Header = () => {
         <li>
             <ActiveLink to={`/contact`}>Contact</ActiveLink>
         </li>
+        <div className="lg:hidden">
+        {
+                !user ?
+
+                <>
+                    <li>
+                        <FaUserAlt />
+                    </li>
+                    <li>
+                        <ActiveLink to={`/login`}>
+                            Login
+                        </ActiveLink>
+                    </li>
+                </> :
+                <>
+                    <li>
+                        <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />
+                    </li>
+                    <li onClick={handleLogOut}>
+                        <Link>
+                            Logout
+                        </Link>
+                    </li>
+                </>
+        }
+        </div>
     </>
     return (
         <div className="navbar bg-orange-primary text-black font-bold lg:py-6">
@@ -83,15 +109,15 @@ const Header = () => {
                 </ul>
             </div>
             <div className="dropdown navbar-end lg:hidden me-4">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden w-full flex items-center justify-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
-                    <ul tabIndex={0} className="bg-white menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 z-10 right-6">
-                        {
-                            menuItems
-                        }
-                    </ul>
-                </div>
+                <label tabIndex={0} className="btn btn-ghost lg:hidden w-full flex items-center justify-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                </label>
+                <ul tabIndex={0} className="bg-white menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 z-10 right-6">
+                    {
+                        menuItems
+                    }
+                </ul>
+            </div>
         </div>
     );
 };
