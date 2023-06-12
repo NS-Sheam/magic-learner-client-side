@@ -10,7 +10,14 @@ import { Link } from 'react-router-dom';
 const SelectedClass = () => {
     const { user, loading } = useAuth();
     const [myClassData, classLoading, refetch] = useMyClasses();
-    const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass.price + sum, 0);
+
+    if (loading || classLoading) {
+        return <div className='flex justify-center items-center'>
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
+
+    const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass?.price + sum, 0);
     // console.log(totalAmount);
     const handleDelete = id => {
         Swal.fire({
@@ -41,14 +48,7 @@ const SelectedClass = () => {
             }
         })
     }
-    const handlePay = () => {
-
-    }
-    if (loading || classLoading) {
-        return <div className='flex justify-center items-center'>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
+    
     return (
         <div>
             <div>

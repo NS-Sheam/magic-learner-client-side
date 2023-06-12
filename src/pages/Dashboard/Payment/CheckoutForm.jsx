@@ -76,7 +76,7 @@ const CheckoutForm = ({ price, myClassData }) => {
 
         // console.log("payment Intent", paymentIntent);
         setProcessing(false);
-        if (paymentIntent.status === "succeeded") {
+        if (paymentIntent?.status === "succeeded") {
             setTransectionId(paymentIntent.id);
             const payment = {
                 email: user?.email,
@@ -97,14 +97,14 @@ const CheckoutForm = ({ price, myClassData }) => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    if (data.insertedId) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'your payment successfull',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
+                    // if (data.insertedId) {
+                    //     Swal.fire({
+                    //         icon: 'success',
+                    //         title: 'your payment successfull',
+                    //         showConfirmButton: false,
+                    //         timer: 1500
+                    //     });
+                    // }
                 })
         }
 

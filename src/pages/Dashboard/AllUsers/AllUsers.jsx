@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle";
 import useAdmin from "../../../hooks/useAdmin";
 import useAllUsers from "../../../hooks/useAllUsers";
@@ -6,16 +7,35 @@ const AllUsers = () => {
     const [allUsers, refetch] = useAllUsers();
     // console.log(allUsers);
     const handleDelete = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
-            method: "DELETE"
+        Swal.fire({
+            title: 'Are you sure want to delete this user?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete User'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/users/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data);
+                        if (data?.deletedCount > 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'User deleted successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            refetch();
+                        }
+                    })
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.deletedCount > 0) {
-                    refetch();
-                }
-            })
+
+
     }
     const handleMakeAdmin = email => {
         fetch(`http://localhost:5000/users?email=${email}`, {

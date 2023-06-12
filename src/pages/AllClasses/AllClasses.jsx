@@ -50,7 +50,7 @@ const AllClasses = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            navigate("/dashboard/payment")
+                            // navigate("/dashboard/payment")
                             refetch();
                         }
                         if (data.error === "ClassId already exists in the array.") {
