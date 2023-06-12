@@ -11,8 +11,6 @@ import SingleClassRow from './SingleClassRow';
 const SelectedClass = () => {
     const { user, loading } = useAuth();
     const [responseData, classLoading, refetch] = useMyClasses();
-    const total = [];
-    console.log(total);
     const {classesData: myClassData, classesId: paymentStatus} = responseData;
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>

@@ -54,7 +54,7 @@ const Dashboard = () => {
             </li>
             <li className="my-1">
                 {/* TODO: make payment for instructor */}
-                <Link to={`/myclass`}> Payment
+                <Link to={`/dashboard/payment`}> Payment
                 </Link>
             </li>
         </>

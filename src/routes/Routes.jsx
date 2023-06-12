@@ -15,12 +15,13 @@ import MyClasses from "../pages/Dashboard/MyClasses/MyClasses";
 import AdminRoute from "./AdminRoute";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import UpdateClass from "../pages/Dashboard/UpdateClass/UpdateClass";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
-        errorElement: <div>error</div>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
