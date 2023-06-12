@@ -44,7 +44,7 @@ const AddClass = () => {
                     status: "pending"
                 };
                 
-                fetch("http://localhost:5000/classes", {
+                fetch("https://summer-camp-server-side-alpha.vercel.app/classes", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -55,7 +55,7 @@ const AddClass = () => {
                 .then(data => {
                     // console.log(data);
                     if (data.insertedId) {
-                        fetch(`http://localhost:5000/users?email=${user?.email}`, {
+                        fetch(`https://summer-camp-server-side-alpha.vercel.app/users?email=${user?.email}`, {
                     method: "PUT",
                     headers: {
                         "content-type": "application/json"

@@ -9,7 +9,7 @@ const useInstructor = () => {
         queryKey: ['instructors'],
         enabled: !loading,
         queryFn: async () => {
-                const res = await fetch('http://localhost:5000/users/instructors');
+                const res = await fetch('https://summer-camp-server-side-alpha.vercel.app/users/instructors');
                 return res.json();
           
         },
@@ -21,7 +21,7 @@ const useInstructor = () => {
 export default useInstructor;
 
 // queryFn: async () => {
-        //     const res = await fetch(`http://localhost:5000/carts?email=${user?.email}`, { headers: {
+        //     const res = await fetch(`https://summer-camp-server-side-alpha.vercel.app/carts?email=${user?.email}`, { headers: {
         //         authorization: `bearer ${token}`
         //     }})
         //     return res.json();

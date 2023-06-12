@@ -10,7 +10,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const Payment = () => {
     const [responseData, classLoading, refetch] = useMyClasses();
-    const {classesData: myClassData} = responseData;
+    const { classesData: myClassData } = responseData;
     const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass.price + sum, 0);
     // console.log(totalAmount);
     const price = +totalAmount.toFixed(2);

@@ -9,7 +9,7 @@ export const handleDeleteClass = (id, refetch) => {
         confirmButtonText: 'Delete'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`http://localhost:5000/classes/${id}`, {
+            fetch(`https://summer-camp-server-side-alpha.vercel.app/classes/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())

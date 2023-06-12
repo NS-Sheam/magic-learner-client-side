@@ -14,13 +14,12 @@ const SelectedClass = () => {
     const total = [];
     console.log(total);
     const {classesData: myClassData, classesId: paymentStatus} = responseData;
-    console.log( paymentStatus);
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
         </div>
     }
-    console.log(paymentStatus);
+    
     // const filterPayment = myClassData?.filter(obj1 =>
     //     paymentStatus?.some(obj2 => String(obj2.key) === obj1._id && Object.values(obj2)[0] === "pending")
     //   );
@@ -40,7 +39,7 @@ const SelectedClass = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/users?email=${user?.email}&id=${id}`, {
+                fetch(`https://summer-camp-server-side-alpha.vercel.app/users?email=${user?.email}&id=${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

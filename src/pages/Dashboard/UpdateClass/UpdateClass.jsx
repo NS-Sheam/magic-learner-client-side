@@ -24,7 +24,7 @@ const UpdateClass = () => {
             description
         }
         // console.log(updatedClass);
-        fetch(`http://localhost:5000/classes/${classData._id}`, {
+        fetch(`https://summer-camp-server-side-alpha.vercel.app/classes/${classData._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"

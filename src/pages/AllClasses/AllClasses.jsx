@@ -33,7 +33,7 @@ const AllClasses = () => {
             confirmButtonText: 'Enroll Class'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/users?email=${user?.email}`, {
+                fetch(`https://summer-camp-server-side-alpha.vercel.app/users?email=${user?.email}`, {
                     method: "PUT",
                     headers: {
                         "content-type": "application/json"
@@ -78,7 +78,7 @@ const AllClasses = () => {
             requestBody.feedback = feedbackMassage;
           }
         // console.log(id, status);
-        fetch(`http://localhost:5000/classes/${id}`, {
+        fetch(`https://summer-camp-server-side-alpha.vercel.app/classes/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"

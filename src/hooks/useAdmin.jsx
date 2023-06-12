@@ -9,7 +9,7 @@ const useAdmin = () => {
     queryKey: ['isAdmin', user?.email],
     enabled: !loading,
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/admin/${user?.email}`);
+      const res = await axios.get(`https://summer-camp-server-side-alpha.vercel.app/users/admin/${user?.email}`);
       // console.log(res.data);
       return res.data;
     },

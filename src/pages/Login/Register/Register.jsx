@@ -19,7 +19,7 @@ const Register = () => {
             updateUserProfile(name, photo)
             .then(() =>{
                 const saveUser = {name, email, role: "student", isAdmin: false}
-                fetch("http://localhost:5000/users", {
+                fetch("https://summer-camp-server-side-alpha.vercel.app/users", {
                     method: "POST",
                     headers: {
                         "content-type" : "application/json"

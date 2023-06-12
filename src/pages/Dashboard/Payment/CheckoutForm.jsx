@@ -15,7 +15,7 @@ const CheckoutForm = ({ price, myClassData }) => {
     const [transactionId, setTransectionId] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://summer-camp-server-side-alpha.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -87,7 +87,7 @@ const CheckoutForm = ({ price, myClassData }) => {
                 className: myClassData?.map(singleClass => singleClass.title),
                 paymentStatus: "success"
             }
-            fetch("http://localhost:5000/payments", {
+            fetch("https://summer-camp-server-side-alpha.vercel.app/payments", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

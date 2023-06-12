@@ -16,7 +16,7 @@ const AllUsers = () => {
             confirmButtonText: 'Delete User'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/users/${id}`, {
+                fetch(`https://summer-camp-server-side-alpha.vercel.app/users/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
@@ -38,7 +38,7 @@ const AllUsers = () => {
 
     }
     const handleMakeAdmin = email => {
-        fetch(`http://localhost:5000/users?email=${email}`, {
+        fetch(`https://summer-camp-server-side-alpha.vercel.app/users?email=${email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -55,7 +55,7 @@ const AllUsers = () => {
     }
 
     const handleMakeInstructor = email => {
-        fetch(`http://localhost:5000/users?email=${email}`, {
+        fetch(`https://summer-camp-server-side-alpha.vercel.app/users?email=${email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
