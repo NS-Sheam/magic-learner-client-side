@@ -47,7 +47,7 @@ const CheckoutForm = ({ price, myClassData }) => {
         })
 
         if (error) {
-            console.log("error", error);
+            // console.log("error", error);
             setCardError(error?.message);
         }
         else {

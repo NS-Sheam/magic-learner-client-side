@@ -35,13 +35,14 @@ const Register = () => {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                 })
                 navigate("/");
             })
             // console.log(loggedUser);
         })
         .catch(error=>{
+            setError(error.message)
             console.log(error);
         })
     }
