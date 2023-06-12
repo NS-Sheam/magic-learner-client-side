@@ -25,7 +25,7 @@ const SelectedClass = () => {
     // console.log(filterPayment);
     const totalAmount = myClassData?.reduce((sum, singleClass) => + singleClass.price + sum, 0).toFixed(2);
     // console.log(totalAmount);
-    console.log(myClassData);
+    // console.log(myClassData);
     const handleDelete = id => {
         Swal.fire({
             title: 'Are you sure to want to delete?',

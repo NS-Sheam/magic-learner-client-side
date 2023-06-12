@@ -96,15 +96,15 @@ const CheckoutForm = ({ price, myClassData }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    // if (data.insertedId) {
-                    //     Swal.fire({
-                    //         icon: 'success',
-                    //         title: 'your payment successfull',
-                    //         showConfirmButton: false,
-                    //         timer: 1500
-                    //     });
-                    // }
+                    // console.log(data);
+                    if (data.paymentResult.insertedId) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'your payment successfull',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 })
         }
 
