@@ -15,7 +15,7 @@ const AllClasses = () => {
     const { user, loading } = useAuth();
     const [userRole, isAdminLoading] = useAdmin();
     const role = userRole?.role;
-    console.log(role);
+    // console.log(role);
     const location = useLocation();
     const navigate = useNavigate();
     const [selectedClass, setSelectedClass] = useState(null);
@@ -43,7 +43,7 @@ const AllClasses = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                         if (data?.modifiedCount > 0) {
                             Swal.fire({
                                 icon: 'success',
