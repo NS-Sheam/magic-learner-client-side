@@ -9,7 +9,8 @@ import useMyClasses from '../../../hooks/useMyClasses';
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const Payment = () => {
-    const [myClassData] = useMyClasses();
+    const [responseData, classLoading, refetch] = useMyClasses();
+    const {classesData: myClassData} = responseData;
     const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass.price + sum, 0);
     // console.log(totalAmount);
     const price = +totalAmount.toFixed(2);

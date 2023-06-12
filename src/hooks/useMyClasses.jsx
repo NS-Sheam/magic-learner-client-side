@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 const useMyClasses = () => {
     const { user, loading } = useAuth();
 
-    const { refetch, data:myClassData = [], loading: classLoading } = useQuery({
+    const { refetch, data:responseData = [], loading: classLoading } = useQuery({
         queryKey: ["email"],
         enabled: !loading,
         queryFn: async () => {
@@ -13,7 +13,7 @@ const useMyClasses = () => {
         },
       });
 
-    return [myClassData, classLoading, refetch]
+    return [responseData, classLoading, refetch]
 };
 
 export default useMyClasses;

@@ -6,19 +6,29 @@ import { useEffect } from 'react';
 import useMyClasses from '../../../hooks/useMyClasses';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import SingleClassRow from './SingleClassRow';
 
 const SelectedClass = () => {
     const { user, loading } = useAuth();
-    const [myClassData, classLoading, refetch] = useMyClasses();
-
+    const [responseData, classLoading, refetch] = useMyClasses();
+    const total = [];
+    console.log(total);
+    const {classesData: myClassData, classesId: paymentStatus} = responseData;
+    console.log( paymentStatus);
     if (loading || classLoading) {
         return <div className='flex justify-center items-center'>
             <span className="loading loading-bars loading-lg"></span>
         </div>
     }
-
-    const totalAmount = myClassData?.reduce((sum, singleClass) => +singleClass?.price + sum, 0);
+    console.log(paymentStatus);
+    // const filterPayment = myClassData?.filter(obj1 =>
+    //     paymentStatus?.some(obj2 => String(obj2.key) === obj1._id && Object.values(obj2)[0] === "pending")
+    //   );
+    //   console.log(filterPayment);
+    // console.log(filterPayment);
+    const totalAmount = myClassData?.reduce((sum, singleClass) => + singleClass.price + sum, 0).toFixed(2);
     // console.log(totalAmount);
+    console.log(myClassData);
     const handleDelete = id => {
         Swal.fire({
             title: 'Are you sure to want to delete?',
@@ -82,41 +92,12 @@ const SelectedClass = () => {
                     {
                         myClassData?.map((singleClass, i) => {
                             return (
-                                <tr key={i}>
-                                    <td>{i + 1}</td>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={singleClass.image} alt="Avatar Tailwind CSS Component" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p className="font-bold">{singleClass.title}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div>
-                                                <div className="font-bold">{singleClass.instructor}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p>${singleClass.price}</p>
-                                    </td>
-
-                                    <th className="">
-                                        {/* TODO: payment page */}
-                                        <label
-                                            onClick={() => handleDelete(singleClass._id)}
-                                            className="btn btn-xs border-none text-white bg-red-500 hover:bg-orange-secondary"
-                                        >
-                                            Delete
-                                        </label>
-                                    </th>
-                                </tr>
+                                <SingleClassRow
+                                key={i}
+                                singleClass={singleClass}
+                                handleDelete={handleDelete}
+                                i={i}
+                                />
                             )
                         })
                     }
