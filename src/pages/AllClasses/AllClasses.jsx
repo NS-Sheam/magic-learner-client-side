@@ -15,6 +15,7 @@ const AllClasses = () => {
     const { user, loading } = useAuth();
     const [userRole, isAdminLoading] = useAdmin();
     const role = userRole?.role;
+    console.log(role);
     const location = useLocation();
     const navigate = useNavigate();
     const [selectedClass, setSelectedClass] = useState(null);
