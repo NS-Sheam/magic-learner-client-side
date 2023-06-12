@@ -43,7 +43,7 @@ const AllClasses = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        // console.log(data);
+                        console.log(data);
                         if (data?.modifiedCount > 0) {
                             Swal.fire({
                                 icon: 'success',
@@ -52,7 +52,15 @@ const AllClasses = () => {
                                 timer: 1500
                             });
                             // navigate("/dashboard/payment")
-                            refetch();
+                            refetch()
+                        }
+                        if (data.modifiedCount === 0) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'You already select this class',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                         }
                         if (data.error === "ClassId already exists in the array.") {
                             Swal.fire({
@@ -77,7 +85,7 @@ const AllClasses = () => {
         }
         if (feedbackMassage !== null) {
             requestBody.feedback = feedbackMassage;
-          }
+        }
         // console.log(id, status);
         fetch(`https://summer-camp-server-side-alpha.vercel.app/classes/${id}`, {
             method: "PUT",
