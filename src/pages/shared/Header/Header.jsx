@@ -1,12 +1,14 @@
 
 import logo from "../../../assets/logo.png"
 import { useContext } from 'react';
-import { FaUserAlt } from 'react-icons/fa';
+import { FaToggleOff, FaToggleOn, FaUserAlt } from 'react-icons/fa';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import ActiveLink from './ActiveLink';
 import { Link } from 'react-router-dom';
+import useAuth from "../../../hooks/useAuth";
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    const { theme, setTheme } = useAuth();
     // console.log(user);
     const handleLogOut = () => {
         logOut()
@@ -37,31 +39,38 @@ const Header = () => {
         <li>
             <ActiveLink to={`/contact`}>Contact</ActiveLink>
         </li>
+        <li className="text-6xl" onClick={() => theme == "light" ? setTheme("dark") : setTheme("light")}>
+            {
+                theme == "light" ?
+                    <FaToggleOff /> :
+                    <FaToggleOn />
+            }
+        </li>
         <div className="lg:hidden">
-        {
+            {
                 !user ?
 
-                <>
-                    <li>
-                        <FaUserAlt />
-                    </li>
-                    <li>
-                        <ActiveLink to={`/login`}>
-                            Login
-                        </ActiveLink>
-                    </li>
-                </> :
-                <>
-                    <li>
-                        <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />
-                    </li>
-                    <li onClick={handleLogOut}>
-                        <Link>
-                            Logout
-                        </Link>
-                    </li>
-                </>
-        }
+                    <>
+                        <li>
+                            <FaUserAlt />
+                        </li>
+                        <li>
+                            <ActiveLink to={`/login`}>
+                                Login
+                            </ActiveLink>
+                        </li>
+                    </> :
+                    <>
+                        <li>
+                            <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />
+                        </li>
+                        <li onClick={handleLogOut}>
+                            <Link>
+                                Logout
+                            </Link>
+                        </li>
+                    </>
+            }
         </div>
     </>
     return (
@@ -82,6 +91,7 @@ const Header = () => {
             </div>
             <div className="navbar-end hidden lg:block">
                 <ul className="flex justify-center items-center gap-4 px-1">
+                    
                     {
                         !user ?
 
@@ -116,6 +126,7 @@ const Header = () => {
                     {
                         menuItems
                     }
+
                 </ul>
             </div>
         </div>
