@@ -6,13 +6,20 @@ import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import { useState } from "react";
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useAuth();
+    const [error, setError] = useState("")
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        const { name, email, password, photo } = data;
+        const { name, email, password, photo , confirm} = data;
+        if (password != confirm) {
+            setError("password have to match with confirm password")
+            return
+        }
+        setError("")
         createUser(email, password)
         .then(async (result) => {
             const loggedUser = result.user;
@@ -81,7 +88,11 @@ const Register = () => {
                             {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                             {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                             {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                            {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+                            {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>
+                            }
+                            {
+                                error && <p className="text-red-600">{error}</p>
+                            }
                         </div>
                         <div className="form-control">
                             <label className="label">
