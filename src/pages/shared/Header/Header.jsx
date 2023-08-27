@@ -1,7 +1,8 @@
 
 import logo from "../../../assets/logo.png"
 import { useContext } from 'react';
-import { FaToggleOff, FaToggleOn, FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
+import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import ActiveLink from './ActiveLink';
 import { Link } from 'react-router-dom';
@@ -39,11 +40,11 @@ const Header = () => {
         <li>
             <ActiveLink to={`/contact`}>Contact</ActiveLink>
         </li>
-        <li className="text-6xl" onClick={() => theme == "light" ? setTheme("dark") : setTheme("light")}>
+        <li className="text-5xl lg:text-xl" onClick={() => theme == "light" ? setTheme("dark") : setTheme("light")}>
             {
                 theme == "light" ?
-                    <FaToggleOff /> :
-                    <FaToggleOn />
+                    <BsFillMoonStarsFill /> :
+                    <BsFillSunFill />
             }
         </li>
         <div className="lg:hidden">
@@ -52,7 +53,7 @@ const Header = () => {
 
                     <>
                         <li>
-                            <FaUserAlt />
+                            <FaUserAlt className="text-5xl lg:text-xl" />
                         </li>
                         <li>
                             <ActiveLink to={`/login`}>
@@ -74,7 +75,7 @@ const Header = () => {
         </div>
     </>
     return (
-        <div className="navbar bg-orange-primary text-black font-bold lg:py-6">
+        <div className={`${theme === "light" ? "text-black" : "text-white"} navbar bg-orange-primary font-bold lg:py-6`}>
             <div className="navbar-start">
                 <Link to="/" className="flex justify-center items-center lg:gap-4">
                     <img className=" h-6 lg:h-10" src={logo} alt="logo" />
@@ -82,7 +83,7 @@ const Header = () => {
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="flex gap-4 px-1">
+                <ul className="flex gap-4 px-1 items-center">
                     {
                         menuItems
                     }
@@ -91,7 +92,7 @@ const Header = () => {
             </div>
             <div className="navbar-end hidden lg:block">
                 <ul className="flex justify-center items-center gap-4 px-1">
-                    
+
                     {
                         !user ?
 
@@ -122,14 +123,14 @@ const Header = () => {
                 <label tabIndex={0} className="btn btn-ghost lg:hidden w-full flex items-center justify-end">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                 </label>
-                <ul tabIndex={0} className="bg-white menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 z-10 right-6">
+                <ul tabIndex={0} className={`${theme === "light" ? "bg-white" : "bg-slate-900"} menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 z-10 right-6`}>
                     {
                         menuItems
                     }
 
                 </ul>
             </div>
-        </div>
+        </div >
     );
 };
 
