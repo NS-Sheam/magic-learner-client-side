@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const ActiveLink = ({ to, children }) => {
-    const { theme } = useAuth()
-    console.log(theme);
+    const { theme } = useAuth();
     return (
         <NavLink
             to={to}

@@ -1,43 +1,28 @@
 import React from 'react';
 import SectionTitle from '../../components/SectionTitle';
 import useInstructor from '../../hooks/useInstructor';
+import InstructorCard from '../../components/InstructorCard';
 
 const Instructor = () => {
-    const [instructors] = useInstructor();
-    // console.log(instructors);
-    return (
-        <div>
-            <SectionTitle
-            heading={"Our Instructors"}
-            description={"Meet our skilled instructors"}
-            />
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {
-                    instructors?.map(instructor => <div 
-                    key={instructor._id} 
-                    className="card card-compact bg-base-100 shadow-xl p-4">
-                    <div className="">
-                      <img className="h-24 lg:h-56 w-full" src={instructor.image} alt={instructor.name} />
-                    </div>
-                    <div className="text-center space-y-4">
-                      <h2 className="text-2xl text-center">{instructor.name}</h2>
-                      <p className="font-bold">{instructor.classes?.length} classes taken</p>
-                     {
-                        instructor.classes?.slice(0,2).map((cl, i) => <p key={i}>
-                            {cl}
-                        </p>)
-                     }
-                     <p className="font-bold">{instructor.email}</p>
-                     
-                      <div className="card-actions justify-end">
-                        <button className="btn btn-xs bg-bandOrange">Details</button>
-                      </div>
-                    </div>
-                  </div>)
-                }
-            </div>
-        </div>
-    );
+  const [instructors] = useInstructor();
+  // console.log(instructors);
+  return (
+    <div>
+      <SectionTitle
+        heading={"Our Instructors"}
+        description={"Meet our skilled instructors"}
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {
+          instructors?.map(instructor => <div
+            key={instructor._id}
+            className="card card-compact bg-base-100 shadow-xl p-4">
+            <InstructorCard instructor={instructor} />
+          </div>)
+        }
+      </div>
+    </div>
+  );
 };
 
 export default Instructor;

@@ -1,25 +1,47 @@
-import { useQuery } from '@tanstack/react-query'
-import useAuth from './useAuth';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-const useClasses = () => {
-    const { user, loading } = useAuth();
+import { allClass, createClass, deleteClass } from '../utilities/classOperation';
 
-    const { refetch, data: classes = [], loading: classLoading } = useQuery({
-        queryKey: ['classes'],
-        queryFn: async() => {
-            const res = await fetch('https://summer-camp-server-side-alpha.vercel.app/classes');
-            return res.json();
+const useClasses = (createFunction, deleteFunction) => {
+    const queryClient = useQueryClient();
+
+    // Fetch All Classes
+    const fetchClasses = async () => {
+        const response = await allClass();
+        return response.data;
+    };
+
+    const { data: classes = [], isLoading: classLoading, error: fetchError, refetch } = useQuery(['classes'], fetchClasses);
+
+    // Create Class
+    const createClassMutation = useMutation(
+        async (classDetails, email) => {
+            const response = await createClass(classDetails, email);
+
+            if (response.insertedId) {
+                queryClient.invalidateQueries(['allClasses']);
+            }
         }
-    })
+    );
 
-    return [classes, classLoading, refetch]
+    // Delete Class
+    const deleteClassMutation = useMutation(
+        async (id) => {
+            console.log("tanstack");
+            const response = await deleteClass(id);
+            return response.data;
+        }
+    );
 
-}
+    return {
+        classes,
+        classLoading,
+        fetchError,
+        refetch,
+        createClass: createClassMutation.mutateAsync,
+        deleteClass: deleteClassMutation.mutateAsync,
+    };
+};
+
 export default useClasses;
 
-// queryFn: async () => {
-        //     const res = await fetch(`https://summer-camp-server-side-alpha.vercel.app/carts?email=${user?.email}`, { headers: {
-        //         authorization: `bearer ${token}`
-        //     }})
-        //     return res.json();
-        // },

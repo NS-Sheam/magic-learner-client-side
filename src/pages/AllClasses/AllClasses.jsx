@@ -6,15 +6,14 @@ import useClasses from "../../hooks/useClasses";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import useAdmin from "../../hooks/useAdmin";
-import { handleDeleteClass } from "../../utilities/handleDeleteClass";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import FeedBackModal from "../../components/FeedBackModal";
+import ClassCard from "../../components/ClassCard";
 
 const AllClasses = () => {
-    const [classes, classLoading, refetch] = useClasses();
+    const { classes, classLoading, refetch } = useClasses();
     const { user, loading } = useAuth();
     const [userRole, isAdminLoading] = useAdmin();
-    const role = userRole?.role;
     // console.log(role);
     const location = useLocation();
     const navigate = useNavigate();
@@ -80,6 +79,7 @@ const AllClasses = () => {
     }
 
     const handleStatus = (id, status) => {
+        console.log("hitting", id, status);
         const requestBody = {
             status: status
         }
@@ -107,7 +107,6 @@ const AllClasses = () => {
                     refetch();
                 }
             })
-
     }
     if (loading || isAdminLoading || classLoading) {
         return <div className='h-screen flex justify-center items-center'>
@@ -120,64 +119,9 @@ const AllClasses = () => {
                 heading={"All Classes are here"}
                 description={"All classe of the school are here"}
             />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
-                    classes?.map(singleClass => <div
-                        key={singleClass._id}
-                        className="card card-compact bg-base-100 shadow-xl p-4 relative">
-                        <div><img className='lg:h-48 w-full' src={singleClass.image} alt={singleClass.title} /></div>
-                        <div className="card-body text-center">
-                            <h2 className="text-2xl text-center">{singleClass.title}</h2>
-                            <p className="font-bold">{singleClass.instructor}</p>
-                            <p>Enrolled: {singleClass.enrolledStudents || (singleClass.capacity - singleClass.availableSeat)} students</p>
-                            <p className="font-bold">{singleClass.availableSeat || singleClass.capacity || 0} seats are available</p>
-                            <p>Fees: ${singleClass.price}</p>
-
-                            {
-                                !role || !userRole?.isAdmin &&
-                                role === "student" &&
-                                <div className="card-actions justify-end">
-                                    <button onClick={() => handleEnroll(singleClass._id)} className="btn btn-xs bg-bandOrange">Enroll Now</button>
-                                </div>
-                            }
-                            {
-                                userRole?.isAdmin &&
-                                <div className="flex justify-end gap-2">
-                                    {
-                                        singleClass?.status === "pending" ?
-                                            <>
-                                                <button
-                                                    onClick={() => handleStatus(singleClass._id, "approved")}
-                                                    className="px-2 py-1 rounded-md border-2 font-bold text-white bg-green-700 hover:bg-green-600"
-                                                >
-                                                    Approve</button>
-                                                <button
-                                                    onClick={() => {
-                                                        setModalOpen(true)
-                                                        setSelectedClass(singleClass)
-                                                    }}
-                                                    className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
-                                                >Deny</button>
-                                            </> :
-                                            singleClass?.status === "denied" ?
-                                                <button
-                                                    className="cursor-auto px-2 py-1 rounded-md border-2 text-red-500 border-red-500 font-bold"
-                                                >
-                                                    Denied</button> :
-                                                <button
-                                                    className="cursor-auto px-2 py-1 rounded-md border-2 text-green-500 border-green-500 font-bold"
-                                                >
-                                                    Approved</button>
-                                    }
-                                    <button
-                                        onClick={() => handleDeleteClass(singleClass._id, refetch)}
-                                        className="px-2 py-1 rounded-md border-2 font-bold text-white bg-red-700 hover:bg-red-600"
-                                    >
-                                        Delete Class</button>
-                                </div>
-                            }
-                        </div>
-                    </div>)
+                    classes?.map((singleClass, index) => <ClassCard key={index} singleClass={singleClass} handleEnroll={handleEnroll} handleStatus={handleStatus} setModalOpen={setModalOpen} setSelectedClass={setSelectedClass} />)
                 }
 
             </div>

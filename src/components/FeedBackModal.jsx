@@ -1,7 +1,7 @@
 
 const FeedBackModal = ({ setModalOpen, selectedClass, handleStatus, setFeedbackMassage }) => {
     return (
-        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 lg:p-10 rounded-lg border shadow-2xl w-1/2 h-[70vh] lg:h-2/3'>
+        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 lg:p-10 rounded-lg border shadow-2xl w-1/2 h-[70vh]'>
             <form method="dialog" className="space-y-4">
                 <button
                     htmlFor="my-modal-3"

@@ -8,7 +8,7 @@ import FeedBackModal from "../../../components/FeedBackModal";
 import SingleMyClass from "./SingleMyClass";
 
 const MyClasses = () => {
-    const [classes, classLoading, refetch] = useClasses();
+    const { classes, classLoading, refetch } = useClasses();
     const { user, loading } = useAuth();
     const filterMyClasses = classes?.filter(singleClass => singleClass.instructor === user.displayName);
     const [selectedClass, setSelectedClass] = useState(null);
@@ -28,12 +28,12 @@ const MyClasses = () => {
                     filterMyClasses?.map(singleClass => <SingleMyClass
                         key={singleClass._id}
                         singleClass={singleClass}
-                         navigate={navigate}
-                          setModalOpen={setModalOpen}
-                           setSelectedClass={setSelectedClass}
-                            handleDeleteClass={handleDeleteClass}
-                             refetch={refetch}
-                             />)
+                        navigate={navigate}
+                        setModalOpen={setModalOpen}
+                        setSelectedClass={setSelectedClass}
+                        handleDeleteClass={handleDeleteClass}
+                        refetch={refetch}
+                    />)
                 }
                 {
                     modalOpen &&

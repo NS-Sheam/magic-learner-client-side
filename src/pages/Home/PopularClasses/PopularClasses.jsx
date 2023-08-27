@@ -3,7 +3,7 @@ import SectionTitle from '../../../components/SectionTitle';
 import useClasses from '../../../hooks/useClasses';
 
 const PopularClasses = () => {
-    const [classes, refetch] = useClasses();
+    const { classes } = useClasses();
     // console.log(classes);
     return (
         <div className="my-container lg:py-14">
@@ -15,7 +15,7 @@ const PopularClasses = () => {
                     classes?.slice(0, 6).map(cl => <div
                         key={cl._id}
                         className="card card-compact bg-base-100 shadow-xl p-4">
-                        <div><img className='lg:h-48 w-full' src={cl.image} alt={cl.title} /></div>
+                        <div><img className='h-60 w-full' src={cl.image} alt={cl.title} /></div>
                         <div className="card-body text-center">
                             <h2 className="text-2xl text-center">{cl.title}</h2>
                             <p>Enrolled: {cl.enrolledStudents} students</p>
