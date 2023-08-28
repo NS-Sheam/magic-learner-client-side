@@ -14,11 +14,7 @@ const MyClasses = () => {
     const [selectedClass, setSelectedClass] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
-    if (loading || classLoading) {
-        return <div className='flex justify-center items-center'>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
+
     return (
         <div>
             <SectionTitle heading={"All your Classes"}

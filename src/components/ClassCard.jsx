@@ -3,11 +3,13 @@ import useAdmin from '../hooks/useAdmin';
 import useClasses from '../hooks/useClasses';
 import { handleDeleteClass } from "../utilities/handleDeleteClass"
 import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
 
 const ClassCard = ({ singleClass, handleEnroll, handleStatus, setModalOpen, setSelectedClass }) => {
     const [userRole] = useAdmin();
     const { deleteClass, refetch } = useClasses();
     const role = userRole?.role;
+    const { theme } = useAuth();
     const handleDelete = async (id) => {
         Swal.fire({
             title: "Are you sure to want to delete this class?",
@@ -36,7 +38,7 @@ const ClassCard = ({ singleClass, handleEnroll, handleStatus, setModalOpen, setS
     return (
         <div
             key={singleClass._id}
-            className="card card-compact bg-base-100 shadow-xl p-4 relative">
+            className={`${theme === "light" ? "bg-white" : "bg-base-100"} card card-compact shadow-xl p-4 relative`}>
             <div><img className='h-60 w-full' src={singleClass.image} alt={singleClass.title} /></div>
             <div className="card-body text-center">
                 <h2 className="text-2xl text-center">{singleClass.title}</h2>

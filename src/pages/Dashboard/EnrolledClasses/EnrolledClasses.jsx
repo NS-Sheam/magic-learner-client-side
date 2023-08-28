@@ -10,11 +10,7 @@ const EnrolledClasses = () => {
     const [responseData, classLoading, refetch] = useMyClasses();
     const { classesData: myClassData } = responseData;
     // console.log(myClassData);
-    if (loading || classLoading) {
-        return <div className='h-screen flex justify-center items-center'>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
+
     return (
         <div>
             <div>

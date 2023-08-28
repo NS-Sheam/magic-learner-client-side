@@ -27,7 +27,6 @@ const useClasses = (createFunction, deleteFunction) => {
     // Delete Class
     const deleteClassMutation = useMutation(
         async (id) => {
-            console.log("tanstack");
             const response = await deleteClass(id);
             return response.data;
         }

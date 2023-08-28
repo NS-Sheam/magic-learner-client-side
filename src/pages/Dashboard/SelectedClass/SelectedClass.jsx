@@ -11,13 +11,8 @@ import SingleClassRow from './SingleClassRow';
 const SelectedClass = () => {
     const { user, loading } = useAuth();
     const [responseData, classLoading, refetch] = useMyClasses();
-    const {classesData: myClassData, classesId: paymentStatus} = responseData;
-    if (loading || classLoading) {
-        return <div className='flex justify-center items-center'>
-            <span className="loading loading-bars loading-lg"></span>
-        </div>
-    }
-    
+    const { classesData: myClassData, classesId: paymentStatus } = responseData;
+
     // const filterPayment = myClassData?.filter(obj1 =>
     //     paymentStatus?.some(obj2 => String(obj2.key) === obj1._id && Object.values(obj2)[0] === "pending")
     //   );
@@ -55,7 +50,7 @@ const SelectedClass = () => {
             }
         })
     }
-    
+
     return (
         <div>
             <div>
@@ -90,10 +85,10 @@ const SelectedClass = () => {
                         myClassData?.map((singleClass, i) => {
                             return (
                                 <SingleClassRow
-                                key={i}
-                                singleClass={singleClass}
-                                handleDelete={handleDelete}
-                                i={i}
+                                    key={i}
+                                    singleClass={singleClass}
+                                    handleDelete={handleDelete}
+                                    i={i}
                                 />
                             )
                         })

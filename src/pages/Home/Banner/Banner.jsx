@@ -9,7 +9,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 const Banner = () => {
     const bannerLeft = (img) => <div className="lg:h-[700px]  bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)]">
-        {/* TODO: make small banner for mobile devices */}
         <div className="lg:flex lg:flex-row justify-between items-center text-center text-neutral-content p-4 space-y-4">
             <div
                 className="my-container lg:w-1/2 space-y-4 text-center lg:text-left"
@@ -39,12 +38,15 @@ const Banner = () => {
                 bgImage={bannerImg}
                 bgImageAlt="the menu"
                 strength={-200}
+                swipeable={false}
             >
                 <Carousel
                     autoPlay={true}
                     infiniteLoop={true}
                     interval={5000}
                     showThumbs={false}
+                    showArrows={false}
+                    swipeable={false}
                 >
 
                     {
