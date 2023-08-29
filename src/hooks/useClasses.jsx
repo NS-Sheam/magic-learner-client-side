@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { allClass, createClass, deleteClass } from '../utilities/classOperation';
+import { allClass, createClass, deleteClass, enrollUserInClass } from '../utilities/classOperation';
 
-const useClasses = (createFunction, deleteFunction) => {
+const useClasses = () => {
     const queryClient = useQueryClient();
 
     // Fetch All Classes
@@ -32,6 +32,16 @@ const useClasses = (createFunction, deleteFunction) => {
         }
     );
 
+    const enrollCallMutation = useMutation(
+        async (userEmail, classId) => {
+            const response = await enrollUserInClass(userEmail, classId)
+            if (response.modifiedCount > 0) {
+                queryClient.invalidateQueries(['modifiedClass']);
+            }
+
+        }
+    )
+
     return {
         classes,
         classLoading,
@@ -39,6 +49,7 @@ const useClasses = (createFunction, deleteFunction) => {
         refetch,
         createClass: createClassMutation.mutateAsync,
         deleteClass: deleteClassMutation.mutateAsync,
+        enrolledClass: enrollCallMutation.mutateAsync
     };
 };
 

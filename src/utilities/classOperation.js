@@ -30,6 +30,24 @@ const createClass = async (classDetails, email) => {
   }
 };
 
+const enrollUserInClass = async (userEmail, classId) => {
+  try {
+    const response = await axios.put(
+      `https://summer-camp-server-side-alpha.vercel.app/users?email=${userEmail}`,
+      { status: "enrolled", classId: classId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 const deleteClass = async (id) => {
   try {
     const response = await axios.delete(
@@ -41,4 +59,4 @@ const deleteClass = async (id) => {
   }
 };
 
-export { allClass, createClass, deleteClass };
+export { allClass, createClass, deleteClass, enrollUserInClass };
