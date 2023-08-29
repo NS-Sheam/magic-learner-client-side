@@ -17,11 +17,11 @@ const GurdianMessage = () => {
             </div>
         </div>
         <p className="">
-            Summer Camp Music School exceeded our expectations! Our child had an amazing time learning and exploring different instruments. The instructors were skilled and passionate, creating a positive and supportive environment. We were impressed with the variety of classes offered and the progress our child made in such a short time. 
+            Summer Camp Music School exceeded our expectations! Our child had an amazing time learning and exploring different instruments. The instructors were skilled and passionate, creating a positive and supportive environment. We were impressed with the variety of classes offered and the progress our child made in such a short time.
         </p>
     </div>
     const repeatCards = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
         repeatCards.push(feedBackCard);
     }
     return (
