@@ -32,15 +32,14 @@ const useClasses = () => {
         }
     );
 
-    const enrollCallMutation = useMutation(
+    const enrollClassMutation = useMutation(
         async (userEmail, classId) => {
+            console.log(classId);
             const response = await enrollUserInClass(userEmail, classId)
-            if (response.modifiedCount > 0) {
-                queryClient.invalidateQueries(['modifiedClass']);
-            }
-
+            return response;
         }
     )
+
 
     return {
         classes,
@@ -49,7 +48,7 @@ const useClasses = () => {
         refetch,
         createClass: createClassMutation.mutateAsync,
         deleteClass: deleteClassMutation.mutateAsync,
-        enrolledClass: enrollCallMutation.mutateAsync
+        enrolledClass: enrollClassMutation.mutateAsync
     };
 };
 

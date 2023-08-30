@@ -32,6 +32,7 @@ const createClass = async (classDetails, email) => {
 
 const enrollUserInClass = async (userEmail, classId) => {
   try {
+    console.log("hitting 1st", userEmail, classId);
     const response = await axios.put(
       `https://summer-camp-server-side-alpha.vercel.app/users?email=${userEmail}`,
       { status: "enrolled", classId: classId },

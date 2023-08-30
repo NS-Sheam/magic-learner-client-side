@@ -5,6 +5,7 @@ import "./Login.css"
 import logo from "../../../assets/logo.png"
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { logIn, signInWithGoogle } = useAuth();
@@ -46,7 +47,7 @@ const Login = () => {
                 navigate("/")
             })
             .catch(error => {
-                console.log(error);
+                Swal.error(error.message);
             })
     }
     return (

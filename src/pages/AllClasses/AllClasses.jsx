@@ -78,6 +78,8 @@ const AllClasses = () => {
 
     }
 
+
+
     const handleStatus = (id, status) => {
         console.log("hitting", id, status);
         const requestBody = {
