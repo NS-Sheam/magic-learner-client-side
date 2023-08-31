@@ -78,7 +78,55 @@ const AllClasses = () => {
 
     }
 
+    // const handleEnroll = id => {
+    //     if (!user) {
+    //         return Swal.fire('Please login first to enroll')
+    //     } // TODO: enrolled student wiht Math.floor(Math.random() * 100)
+    //     Swal.fire({
+    //         title: 'Are you sure to added the class your enrollment list?',
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#28a745',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Enroll Class'
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             const response = await enrolledClass(user.email, id)
+    //             console.log(response);
+    //             if (response?.modifiedCount > 0) {
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Your selection done',
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //                 // navigate("/dashboard/payment")
+    //                 refetch()
+    //             }
+    //             if (response.modifiedCount === 0) {
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'You already select this class',
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //             }
+    //             if (response.error === "ClassId already exists in the array.") {
+    //                 Swal.fire({
+    //                     title: 'You already added the class',
+    //                     showClass: {
+    //                         popup: 'animate__animated animate__fadeInDown'
+    //                     },
+    //                     hideClass: {
+    //                         popup: 'animate__animated animate__fadeOutUp'
+    //                     }
+    //                 })
+    //             }
 
+    //         }
+    //     })
+
+    // }
 
     const handleStatus = (id, status) => {
         console.log("hitting", id, status);
